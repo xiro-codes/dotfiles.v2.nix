@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+if [[ "$1" == "--tr" ]]; then
+	warp-terminal-wayland &
+
+elif [[ "$1" == "--ff" ]]; then
+	firefox &
+
+elif [[ "$1" == "--fm" ]]; then
+	pcmanfm ~ &
+
+elif [[ "$1" == "--ge" ]]; then
+	obsidian &
+
+elif [[ "$1" == "--dc" ]]; then
+
+elif [[ "$1" == "--tg" ]]; then
+
+elif [[ "$1" == "--rd" ]]; then
+	librewolf --new-tab "https://reddit.com"
+
+elif [[ "$1" == "--ml" ]]; then
+	librewolf --new-tab "https://mail.google.com"
+
+elif [[ "$1" == "--pow" ]]; then
+
+elif [[ "$1" == "--nm" ]]; then
+
+fi

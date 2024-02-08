@@ -1,0 +1,140 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: Cartograph CF Nerd Font, monospace;
+    font-weight: bold;
+    font-size: 20px;
+    min-height: 0;
+}
+
+window#waybar {
+    background: rgba(21, 18, 27, 0);
+    color: #282828;
+		margin: 0px;
+}
+
+tooltip {
+    background: #FFFFFF;
+    border-radius: 8px;
+		color: #11111b;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #11111b;
+}
+
+#workspaces button {
+    padding: 5px;
+    color: #a6adc8;
+		min-width: 40px;
+		min-height: 40px;
+}
+
+#workspaces button.active {
+    color: #11111b;
+    border-radius: 8px;
+		background: #a6e3a1;
+		border: 2px solid lightgrey;
+}
+
+#workspaces button.focused {
+    color: #11111b;
+    border-radius: 8px;
+    background: #a6e3a1;
+}
+
+#workspaces button.urgent {
+    color: #11111b;
+    background: #eba0ac;
+    border-radius: 8px;
+		animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: steps(12);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#workspaces button:hover {
+    color: #cdd6f4;
+    border-radius: 8px;
+}
+
+#window,
+#clock,
+#battery,
+#wireplumber,
+#network,
+#bluetooth,
+#mpd,
+#cpu,
+#memory,
+#workspaces,
+#tray,
+#custom-hdhomerun_status0,
+#custom-hdhomerun_status1,
+#custom-hdhomerun_status2,
+#custom-hdhomerun_status3,
+#backlight {
+    background: #FFFFFF;
+    margin-left: 4px ;
+    margin-right: 4px ;
+    margin-top: 4px;
+    border: 2px solid #181825;
+		min-width: 120px;
+}
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+        color: black;
+    }
+}
+#workspaces {
+    border-radius: 8px;
+}
+
+#window {
+    border-radius: 8px;
+}
+#memory {
+	color: #cba6f7;
+	border-radius: 0px 8px 8px 0px;
+	border-left: 0px;
+}
+
+#clock {
+    color: #fab387;
+    border-radius: 8px 8px 8px 8px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#bluetooth, #custom-hdhomerun_status1, #custom-hdhomerun_status2{
+    color: #f9e2af;
+    border-left: 0px;
+    border-right: 0px;
+}
+#cpu {
+	color: #cba6f7;
+	border-left: 0px;
+	border-right: 0px;
+}
+#network, #custom-hdhomerun_status0 {
+    color: #89b4fa;
+    border-radius: 8px 8px 8px 8px;
+}
+#wireplumber, #custom-hdhomerun_status3 {
+    color: #cba6f7;
+    border-radius: 8px 8px 8px 8px;
+}
+#custom-hdhomerun_status0, 
+#custom-hdhomerun_status1,
+#custom-hdhomerun_status2, 
+#custom-hdhomerun_status3 {
+	color: #fab287;
+}
+#battery {
+    color: #a6e3a1;
+    border-radius: 0 8px 8px 0;
+    margin-right: 10px;
+    border-left: 0px;
+}
+

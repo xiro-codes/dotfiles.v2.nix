@@ -1,0 +1,82 @@
+
+* {
+    border: none;
+    border-radius: 0;
+    font-family: NotoSans Nerd Font, sans-serif;
+    font-size: 14px;
+    min-height: 0;
+}
+
+window#waybar {
+    background: transparent;
+    color: white;
+}
+
+#workspaces, #taskbar, #cpu {
+	background-color: #24283b;
+	margin: 5px;
+	margin-left: 10px;
+	border-radius: 5px;
+}
+
+#workspaces button, #taskbar button {
+    padding: 5px 10px;
+    color: #c0caf5;
+}
+
+#workspaces button.active, #taskbar  button.active{
+    color: #24283b;
+    background-color: #7aa2f7;
+    border-radius: 5px;
+}
+
+#workspaces button:hover {
+	background-color: #7dcfff;
+	color: #24283b;
+	border-radius: 5px;
+}
+
+#mpd, #clock, #tray, #pulseaudio, #network, #custom-stashed, #custom-ram-usage{
+	background-color: #24283b;
+	padding: 5px 10px;
+	margin: 5px 0px;
+}
+
+#tray, #custom-stashed, #custom-ram-usage {
+    border-radius: 5px;
+	margin-right: 10px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-left: 0px;
+	padding: 5px 10px;
+	color: #e0af68;
+}
+
+
+#clock {
+    color: #b48ead;
+    border-radius: 0px 5px 5px 0px;
+    margin-right: 10px;
+}
+
+#mpd{
+    color: #9ece6a;
+    border-radius: 5px 0px 0px 5px;
+}
+
+#mpd.playing  {
+    color: #9ece6a;
+}
+
+#mpd.disconnected {
+    background-color: #f7768e;
+    color: #24283b;
+}
+
+#network {
+	color: #f7768e;
+}
+
+#pulseaudio {
+	color: #e0af68;
+}

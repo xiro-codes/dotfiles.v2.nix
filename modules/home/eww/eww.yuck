@@ -1,0 +1,332 @@
+;; **
+;; ** Widgets config for EWW
+;; ** Created by : @adi1090x
+;; **
+
+;; ** Variables ***********************************************************************
+
+;; Music vars
+(defpoll SONG :interval "1s" `scripts/music_info --song`)
+(defpoll ARTIST :interval "1s" `scripts/music_info --artist`)
+(defpoll COVER :interval "1s" `scripts/music_info --cover`)
+(defpoll STATUS :interval "1s" `scripts/music_info --status`)
+
+;; Clock vars
+(defpoll TIME :interval "5s" `date +\"%H:%M\"`)
+(defpoll DATE :interval "5s" `date +\"%A, %B %d\"`)
+
+;; Weather vars
+(defpoll _data :interval "5m" `scripts/weather_info --getdata`)
+(defpoll ICON :interval "15m" `scripts/weather_info --icon`)
+(defpoll TEMP :interval "15m" `scripts/weather_info --temp`)
+(defpoll HEX :interval "15m" `scripts/weather_info --hex`)
+
+;; Workspaces vars
+(deflisten workspaces :initial "[]" "scripts/get-workspaces")
+(deflisten current_workspace :initial "1" "scripts/get-active-workspace")
+
+;; apps
+(defwidget apps [] 
+		(box :class "dockbox"
+			(box :orientation "v" :spacing 10 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
+				(button :timeout "10000ms" :style "background-image: url('images/icons/dashboard.svg');" :class "appicon" :onclick "rofi -show drun -normal-window")
+				(button :style "background-image: url('images/icons/apps/terminal.png');" :class "appicon" :onclick "systemd-run --user warp-terminal-wayland ")
+				(button :style "background-image: url('images/icons/apps/firefox.png');" :class "appicon" :onclick "systemd-run --user librewolf")
+				(button :style "background-image: url('images/icons/apps/files.png');" :class "appicon" :onclick "systemd-run --user pcmanfm ")
+				(button :style "background-image: url('images/icons/apps/notes.png');" :class "appicon" :onclick "systemd-run --user obsidian")
+				(box (button :class "album_art" :style "background-image: url('${COVER}');" :onclick "eww open --toggle music"))
+			)
+		)
+)
+;; clock
+(defwidget clock [] 
+		(box :class "dockbox" 
+			(box :class "clockbox" :orientation "v" :spacing 0 :valign "center" :halign "start" :space-evenly "false" :vexpand "false" :hexpand "false"
+				(label :class "time" :halign "start" :wrap "true" :limit-width 25 :text TIME)
+				(label :class "date" :halign "start" :wrap "true" :limit-width 25 :text DATE)
+			)
+			(box :class "weatherbox" :orientation "h" :spacing 0 :valign "center" :halign "end" :space-evenly "false" :vexpand "false" :hexpand "false"
+				(label :class "weathericon" :style "color: ${HEX};" :text ICON)
+				(label :class "weathertemp" :text TEMP)
+			)
+		)
+)
+
+;; music
+(defwidget music [] 
+		(box :class "dockbox"
+			(box :orientation "h" :spacing 0 :valign "center" :halign "start" :space-evenly "false" :vexpand "false" :hexpand "false"
+				(box :class "album_art" :vexpand "false" :hexpand "false" :style "background-image: url('${COVER}');")
+				(box :class "musicbox" :orientation "v" :spacing 0 :valign "center" :halign "start" :space-evenly "false" :vexpand "false" :hexpand "false"
+					(label :class "song" :halign "start" :wrap "false" :limit-width 18 :text SONG)
+					(label :class "artist" :halign "start" :wrap "false" :limit-width 20 :text ARTIST)))
+			(box :class "musicbuttons" :orientation "h" :spacing 10 :valign "center" :halign "end" :space-evenly "false" :vexpand "false" :hexpand "false"
+				(button :style "background-image: url('images/icons/music/previous-button.png');" :class "trackbutton" :onclick "scripts/music_info --prev")
+				(button :style "background-image: url('${STATUS}');" :class "playbutton" :onclick "scripts/music_info --toggle")
+				(button :style "background-image: url('images/icons/music/next-button.png');" :class "trackbutton" :onclick "scripts/music_info --next"))))
+
+
+(defwidget workspaces []
+  (eventbox :onscroll "scripts/change-active-workspace {} ${current_workspace}" :class "dockbox"
+    (box :space-evenly true :class "workspacebox"
+      (label :text "${workspaces}${current_workspace}" :visible false :class "workspace")
+      ;;(for workspace in workspaces
+      ;;  (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
+      ;;    (box :class "workspace ${workspace.id == current_workspace ? "current" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
+      ;;      (label :text "${workspace.id}")
+      ;;    )
+      ;;  )
+      ;;)
+    )
+  )
+  )
+
+;; apps
+(defwindow apps
+           :monitor 0
+           :geometry (geometry :x "4px"
+                               :y "385px"
+                               :width "60px"
+                               :height "250px"
+                               :anchor "top left")
+           :stacking "fg"
+           :reserve (struts :distance "80px" :side "left")
+					 :exclusive true
+           :windowtype "dock"
+           :wm-ignore false
+(apps))
+
+(defwindow apps1
+           :monitor 1 
+           :geometry (geometry :x "4px"
+                               :y "385px"
+                               :width "60px"
+                               :height "250px"
+                               :anchor "top left")
+           :stacking "fg"
+           :reserve (struts :distance "80px" :side "left")
+					 :exclusive true
+           :windowtype "dock"
+           :wm-ignore false
+(apps))
+;; music
+(defwindow music
+           :monitor 0
+           :geometry (geometry :x "68px"
+                               :y "4px"
+                               :width "460px"
+                               :height "54px"
+                               :anchor "top left")
+           :stacking "fg"
+           :reserve (struts :distance "80px" :side "top")
+           :windowtype "dock"
+           :wm-ignore false
+(music))
+(defwindow music1
+           :monitor 1
+           :geometry (geometry :x "68px"
+                               :y "4px"
+                               :width "460px"
+                               :height "54px"
+                               :anchor "top left")
+           :stacking "fg"
+           :reserve (struts :distance "80px" :side "top")
+           :windowtype "dock"
+           :wm-ignore false
+(music))
+(defwindow clock 
+           :monitor 0
+           :geometry (geometry :x "554px"
+                               :y "4px"
+                               :width "300px"
+                               :height "60px"
+                               :anchor "top left")
+           :stacking "fg"
+           :reserve (struts :distance "80px" :side "top")
+           :windowtype "dock"
+           :wm-ignore false
+(clock))
+(defwindow clock1 
+           :monitor 1 
+           :geometry (geometry :x "554px"
+                               :y "4px"
+                               :width "300px"
+                               :height "60px"
+                               :anchor "top left")
+           :stacking "fg"
+           :reserve (struts :distance "80px" :side "top")
+           :windowtype "dock"
+           :wm-ignore false
+(clock))
+
+(defwindow workspaces 
+					 :monitor 0 
+					 :geometry (geometry :x "754px" 
+															 :y "4px" 
+															 :width "200px" 
+															 :height "60px" 
+															 :anchor "top left") 
+					 :stacking "fg" 
+					 :reserve (struts :distance "80px" :side "top")
+					 :windowtype "dock"
+					 :wm-ignore false
+(workspaces))
+(defwindow workspaces1
+					 :monitor 1 
+					 :geometry (geometry :x "754px" 
+															 :y "4px" 
+															 :width "200px" 
+															 :height "60px" 
+															 :anchor "top left") 
+					 :stacking "fg" 
+					 :reserve (struts :distance "80px" :side "top")
+					 :windowtype "dock"
+					 :wm-ignore false
+(workspaces))
+
+;; dash board
+;; **
+;; ** Widgets config for EWW
+;; ** Created by : @adi1090x
+;; **
+
+;; ** Variables ***********************************************************************
+
+;; System vars
+(defpoll HOST :interval "5s" `hostname`)
+(defpoll CPU_USAGE :interval "1s" `./scripts/sys_info --cpu`)
+(defpoll MEM_USAGE :interval "1s" `./scripts/sys_info --mem`)
+(defpoll DISK_USAGE :interval "1s" `./scripts/sys_info --disk`)
+(defpoll BLIGHT :interval "1s" `./scripts/sys_info --blight`)
+(defpoll BATTERY :interval "5s" `./scripts/sys_info --bat`)
+(defpoll QUOTE :interval "5m" `./scripts/quotes`)
+
+;; ** Widgets *************************************************************************
+
+;; resources
+(defwidget resources [] 
+		(box :class "winbox"
+			(centerbox :orientation "h"
+				(box :class "res_box" :orientation "v" :valign "center" :halign "center" :spacing 15 :space-evenly "false"
+					(box :class "res_circle" :orientation "v" :valign "center" :halign "center"
+						(circular-progress :class "res_cpu" :value CPU_USAGE :thickness 5
+							(label :class "res_circle_small" :text "CPU")))
+					(label :class "res_text" :valign "end" :halign "center" :text "${CPU_USAGE}%"))
+				(box :class "res_box" :orientation "v" :valign "center" :halign "center" :spacing 15 :space-evenly "false"
+					(box :class "res_circle" :orientation "v" :valign "center" :halign "center"
+						(circular-progress :class "res_mem" :value MEM_USAGE :thickness 5
+							(label :class "res_circle_small" :text "MEMORY")))
+					(label :class "res_text" :valign "end" :halign "center" :text "${MEM_USAGE}%"))
+				(box :class "res_box" :orientation "v" :valign "center" :halign "center" :spacing 15 :space-evenly "false"
+					(box :class "res_circle" :orientation "v" :valign "center" :halign "center"
+						(circular-progress :class "res_disk" :value DISK_USAGE :thickness 5
+							(label :class "res_circle_small" :text "DISK")))
+					(label :class "res_text" :valign "end" :halign "center" :text "${DISK_USAGE}%")))))
+
+;; powermenus
+(defwidget logout [] 
+		(box :class "winbox"
+			(button :style "background-image: url('./images/icons/system/sys-exit.png');" :class "powericons" :valign "center" :halign "center" :onclick "./scripts/system --logout")))
+(defwidget suspend [] 
+		(box :class "winbox"
+			(button :style "background-image: url('./images/icons/system/sys-sleep.png');" :class "powericons" :valign "center" :halign "center" :onclick "./scripts/system --suspend")))
+(defwidget lock [] 
+		(box :class "winbox"
+			(button :style "background-image: url('./images/icons/system/sys-lock.png');" :class "powericons" :valign "center" :halign "center" :onclick "./scripts/system --lock")))
+(defwidget reboot [] 
+		(box :class "winbox"
+			(button :style "background-image: url('./images/icons/system/sys-reboot.png');" :class "powericons" :valign "center" :halign "center" :onclick "./scripts/system --reboot")))
+(defwidget shutdown [] 
+		(box :class "winbox"
+			(button :style "background-image: url('./images/icons/system/poweroff.png');" :class "powericons" :valign "center" :halign "center" :onclick "./scripts/system --shutdown")))
+
+;; quotes
+(defwidget quotes [] 
+		(box :class "winbox"
+			(box :class "quote_box" :orientation "h" :valign "center" :halign "center" :spacing 10 :space-evenly "false"
+				(box :class "powericons" :style "background-image: url('./images/icons/quotes.png');")
+				(label :class "quote_text" :valign "center" :halign "center" :text QUOTE :wrap true :limit-width 90 ))))
+
+;; ** Windows *************************************************************************
+
+;; resources
+(defwindow resources
+           :monitor 0
+           :geometry (geometry :x "68px"
+                               :y "68px"
+                               :width "480px"
+                               :height "200px"
+                               :anchor "top left")
+           :stacking "fg"
+           :wm-ignore false
+(resources))
+
+;; powermenu
+(defwindow logout
+           :monitor 0
+           :geometry (geometry :x "4px"
+                               :y "64px"
+                               :width "60px"
+                               :height "60px"
+                               :anchor "top left")
+           :stacking "fg"
+           :wm-ignore false
+(logout))
+
+(defwindow suspend
+           :monitor 0
+           :geometry (geometry :x "4px"
+                               :y "128px"
+                               :width "60px"
+                               :height "60px"
+                               :anchor "top left")
+           :stacking "fg"
+           :wm-ignore false
+(suspend))
+
+(defwindow lock
+           :monitor 0
+           :geometry (geometry :x "4px"
+                               :y "192px"
+                               :width "60px"
+                               :height "60px"
+                               :anchor "top left")
+           :stacking "fg"
+           :wm-ignore false
+(lock))
+
+(defwindow reboot
+           :monitor 0
+           :geometry (geometry :x "4px"
+                               :y "258px"
+                               :width "60px"
+                               :height "60px"
+                               :anchor "top left")
+           :stacking "fg"
+           :wm-ignore false
+(reboot))
+
+(defwindow shutdown
+           :monitor 0
+           :geometry (geometry :x "4px"
+                               :y "322px"
+                               :width "60px"
+                               :height "60px"
+                               :anchor "top left")
+           :stacking "fg"
+           :wm-ignore false
+(shutdown))
+
+;; quotes
+(defwindow quotes
+           :monitor 0
+           :geometry (geometry :x "68px"
+                               :y "280px"
+                               :width "480px"
+                               :height "100px"
+                               :anchor "top left")
+           :stacking "fg"
+           :wm-ignore false
+(quotes))
+
+
