@@ -16,7 +16,7 @@ get_status() {
 
 ## Get song
 get_song() {
-	song=`mpc -f %title% current`
+song=$(mpc -f %title% current)
 	if [[ -z "$song" ]]; then
 		echo "Offline"
 	else
@@ -26,7 +26,7 @@ get_song() {
 
 ## Get artist
 get_artist() {
-	artist=`mpc -f %artist% current`
+artist=$(mpc -f %artist% current)
 	if [[ -z "$artist" ]]; then
 		echo "Offline"
 	else
@@ -36,7 +36,7 @@ get_artist() {
 
 ## Get time
 get_time() {
-	time=`mpc status | grep "%)" | awk '{print $4}' | tr -d '(%)'`
+time=$(mpc status | grep "%)" | awk '{print $4}' | tr -d '(%)')
 	if [[ -z "$time" ]]; then
 		echo "0"
 	else
@@ -44,7 +44,7 @@ get_time() {
 	fi	
 }
 get_ctime() {
-	ctime=`mpc status | grep "#" | awk '{print $3}' | sed 's|/.*||g'`
+ctime=$(mpc status | grep "#" | awk '{print $3}' | sed 's|/.*||g')
 	if [[ -z "$ctime" ]]; then
 		echo "0:00"
 	else
@@ -52,7 +52,7 @@ get_ctime() {
 	fi	
 }
 get_ttime() {
-	ttime=`mpc -f %time% current`
+ttime=$(mpc -f %time% current)
 	if [[ -z "$ttime" ]]; then
 		echo "0:00"
 	else

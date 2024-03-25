@@ -6,7 +6,7 @@
   ...
 }:
 with lib; let
-  inherit (inputs.self.packages.${pkgs.system}) scripts;
+  inherit (inputs.self.packages.${pkgs.system}) hyprland-scripts;
   inherit (inputs.self.lib) reduce;
   cfg = config.local;
 
@@ -104,9 +104,9 @@ in {
         exec-once = [
           "wl-paste --type text --watch cliphist store"
           "steam -silent"
-          "${getExe scripts}"
-          "${scripts}/bin/random_wallpaper"
-          ''${pkgs.swayidle}/bin/swayidle lock "${scripts}/bin/lock"''
+          "${getExe hyprland-scripts}"
+          "${hyprland-scripts}/bin/random_wallpaper"
+          ''${pkgs.swayidle}/bin/swayidle lock "${hyprland-scripts}/bin/lock"''
         ];
         monitor =
           map
@@ -137,7 +137,7 @@ in {
 
           "$mod_SHIFT, Q, killactive"
 
-          "$mod, Backspace, exec, ${scripts}/bin/show_dash"
+          "$mod, Backspace, exec, ${hyprland-scripts}/bin/show_dash"
 
           "$mod, F, fullscreen"
           "$mod_SHIFT, F, togglefloating"
