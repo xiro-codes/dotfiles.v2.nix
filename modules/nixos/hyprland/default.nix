@@ -16,7 +16,7 @@ in {
     };
   };
   config = mkIf config.programs.hyprland.enable {
-		security.pam.services.swaylock = { };
+    security.pam.services.swaylock = {};
     environment = {
       etc."greetd/sessions/hyprland.desktop".text = mkIf cfg.greetd.enable ''
         [Desktop Entry]

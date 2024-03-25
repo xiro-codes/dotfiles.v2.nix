@@ -14,11 +14,11 @@ in {
     services.mako = {
       enable = true;
       anchor = "top-right";
-			layer = "overlay";
+      layer = "overlay";
       backgroundColor = "#FFFFFF";
       textColor = "#1e1e1e";
       width = 350;
-			height = 60;
+      height = 60;
       margin = "4,68,0";
       padding = "2";
       borderSize = 2;

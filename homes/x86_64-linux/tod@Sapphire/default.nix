@@ -2,7 +2,7 @@
   config,
   pkgs,
   inputs,
-	lib,
+  lib,
   ...
 }: {
   imports = [
@@ -35,14 +35,16 @@
 
   local = {
     enable = true;
+
     nixvim.enable = true;
+
     eww.enable = true;
     kitty.enable = true;
 
-		joshuto.enable = true;
-		
+    joshuto.enable = true;
+
     guiFileManager = "${lib.getExe pkgs.pcmanfm}";
-		guiTerminal = "${lib.getExe pkgs.neovide}";
+    guiTerminal = "${lib.getExe inputs.self.packages.${pkgs.system}.warp-terminal-wayland}";
 
     hyprland.monitors = [
       {

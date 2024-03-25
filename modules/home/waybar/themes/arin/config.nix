@@ -16,9 +16,9 @@
       #"memory"
     ];
     "modules-center" = [
-		];
+    ];
     "modules-right" = [
-			"hyprland/workspaces"
+      "hyprland/workspaces"
     ];
     "network" = {
       "format-wifi" = " {ipaddr}";
@@ -29,18 +29,18 @@
     };
     "hyprland/window" = {
       "format" = "{class}";
-			"separate-outputs" = true;
-			"rewrite" = {
-				"^dev.warp.Warp$" = " Warp";
-				"^Google-chrome$" = " Chrome";
-				"^Steam$" = " Steam";
-				"^libreWolf$" = " LibreWolf";
-				"^obsidian$" = "󰠮 Obsidian";
-				"^steam_app_1042550$" = " Digimon Cyber Sleuth";
-				"^steam_app_899770$" = " Last Epoch";
-				"^steam_app_(.*)$" = " Steam [$1]";
-			};
-			"max-length" = "20";
+      "separate-outputs" = true;
+      "rewrite" = {
+        "^dev.warp.Warp$" = " Warp";
+        "^Google-chrome$" = " Chrome";
+        "^Steam$" = " Steam";
+        "^libreWolf$" = " LibreWolf";
+        "^obsidian$" = "󰠮 Obsidian";
+        "^steam_app_1042550$" = " Digimon Cyber Sleuth";
+        "^steam_app_899770$" = " Last Epoch";
+        "^steam_app_(.*)$" = " Steam [$1]";
+      };
+      "max-length" = "20";
     };
     "bluetooth" = {
       "format-on" = "";

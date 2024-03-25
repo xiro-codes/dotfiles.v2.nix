@@ -16,13 +16,12 @@ in {
       pkgs.pamixer
       pkgs.brightnessctl
       pkgs.lua
-			pkgs.ffmpeg
-			pkgs.socat
+      pkgs.ffmpeg
+      pkgs.socat
     ];
     home.file.".config/eww/eww.scss".source = ./eww.scss;
     home.file.".config/eww/eww.yuck".source = ./eww.yuck;
     home.file.".config/eww/images/".source = ./images;
-
 
     # scripts
     home.file.".config/eww/scripts/sys_info" = {
@@ -45,10 +44,10 @@ in {
       source = ./scripts/get-window-title;
       executable = true;
     };
-		home.file.".config/eww/scripts/widget_apps" = {
+    home.file.".config/eww/scripts/widget_apps" = {
       source = ./scripts/widget_apps;
       executable = true;
-			};
+    };
     home.file.".config/eww/scripts/battery" = {
       source = ./scripts/battery;
       executable = true;

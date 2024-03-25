@@ -20,9 +20,9 @@ in {
     programs.nixvim = {
       package = inputs.neovim-nightly.packages.${pkgs.system}.neovim;
       enable = true;
-			extraPlugins = [
-				{ plugin = pkgs.vimPlugins.zoxide-vim; }
-			];
+      extraPlugins = [
+        {plugin = pkgs.vimPlugins.zoxide-vim;}
+      ];
       globals.mapleader = ";";
       options = {
         number = true;
@@ -40,13 +40,13 @@ in {
         wrap = false;
       };
       colorschemes.gruvbox = {
-				enable = true;
-				settings = {
-					palette_overrides = {
-						light0 = "#FFFFFF";
-					};
-				};
-			};
+        enable = true;
+        settings = {
+          palette_overrides = {
+            light0 = "#FFFFFF";
+          };
+        };
+      };
       keymaps = [
         {
           action = "o<Esc>";
@@ -129,14 +129,14 @@ in {
       ];
       clipboard.register = "unnamedplus";
       extraConfigLua = ''
-        HOME = os.getenv("HOME")
-        vim.opt.undodir = HOME .. "/.config/nvim/undo"
-				vim.o.background = "light"
-				if vim.g.neovide then
-					vim.o.guifont = "Cascadia Code:h10"
-					vim.g.neovide_cursor_vfx_mode = "railgun"
-					vim.g.neovide_fullscreen = false;
-				end
+            HOME = os.getenv("HOME")
+            vim.opt.undodir = HOME .. "/.config/nvim/undo"
+        vim.o.background = "light"
+        if vim.g.neovide then
+        	vim.o.guifont = "Cascadia Code:h10"
+        	vim.g.neovide_cursor_vfx_mode = "railgun"
+        	vim.g.neovide_fullscreen = false;
+        end
       '';
       extraConfigVim = ''
         set iskeyword-=_
@@ -182,7 +182,7 @@ in {
             {name = "copilot";}
           ];
           snippet = {
-            expand = "luasnip";
+            expand = "function(args) require('luasnip').lsp_expand(args.body) end";
           };
         };
         lsp = {
@@ -193,12 +193,13 @@ in {
             gd = "definition";
             gi = "implementation";
             gt = "type_definition";
-						"<leader>df" = "format";
+            "<leader>df" = "format";
           };
           servers = {
             nil_ls.enable = true;
             gleam.enable = true;
             nixd.enable = true;
+            ccls.enable = true;
           };
         };
       };

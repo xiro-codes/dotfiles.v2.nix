@@ -49,7 +49,7 @@ in {
       xdg-utils
     ];
     environment.variables = mkIf cfg.desktops.useEnv {
-      NIXOS_OZONE_WL= "1";
+      NIXOS_OZONE_WL = "1";
       CLUTTER_BACKEND = "wayland";
       GDK_BACKEND = "wayland";
       GDK_DPI_SCALE = "1";
@@ -60,7 +60,7 @@ in {
       WLR_NO_HARDWARE_CURSORS = "1";
       _JAVA_AWT_WM_NONREPARENTING = "1";
       _JAVA_OPTIONS = "-Dawt.useSystemAAFontSettings=on";
-			WARP_ENABLE_WAYLAND="1";
+      WARP_ENABLE_WAYLAND = "1";
     };
 
     users.users.greeter = {

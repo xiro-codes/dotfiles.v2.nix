@@ -80,9 +80,9 @@
   programs = {
     fish.enable = true;
     steam = {
-			enable = true;
-			localNetworkGameTransfers.openFirewall = true;	
-		};
+      enable = true;
+      localNetworkGameTransfers.openFirewall = true;
+    };
     git.enable = true;
     kdeconnect.enable = true;
     adb.enable = true;
