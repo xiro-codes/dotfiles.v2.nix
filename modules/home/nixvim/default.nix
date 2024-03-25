@@ -208,9 +208,9 @@ in {
             gd = "definition";
             gi = "implementation";
             gt = "type_definition";
-            rn = "rename";
-            "<leader>df" = "format";
-            #"<leader>ca" = "codeactions";
+						"<leader>rn" = "rename";
+						"<leader>ca" = "code_action";
+						"<leader>df" = "format";
           };
           servers = {
             nil_ls.enable = true;
