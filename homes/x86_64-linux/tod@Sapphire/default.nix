@@ -2,6 +2,7 @@
   config,
   pkgs,
   inputs,
+	lib,
   ...
 }: {
   imports = [
@@ -16,7 +17,7 @@
     unzip
     p7zip
     sysstat
-		pcmanfm
+    pcmanfm
     vlc
     xarchiver
     feh
@@ -25,18 +26,24 @@
     transmission-gtk
     bottom
     duf
-		dust
+    dust
     lazygit
-		flowblade
+    flowblade
   ];
 
   fonts.fontconfig.enable = true;
+
   local = {
     enable = true;
     nixvim.enable = true;
     eww.enable = true;
-		kitty.enable = true;
-    fileManager = "${pkgs.pcmanfm}/bin/pcmanfm";
+    kitty.enable = true;
+
+		joshuto.enable = true;
+		
+    guiFileManager = "${lib.getExe pkgs.pcmanfm}";
+		guiTerminal = "${lib.getExe pkgs.neovide}";
+
     hyprland.monitors = [
       {
         name = "DP-1";
@@ -46,7 +53,7 @@
         rate = 60;
         x = 320;
         y = 1080;
-        workspaces = [1 2 3 ];
+        workspaces = [1 2 3];
       }
       {
         name = "HDMI-A-1";
@@ -56,11 +63,11 @@
         rate = 60;
         x = 0;
         y = 0;
-        workspaces = [4 5 6 ];
+        workspaces = [4 5 6];
       }
     ];
     waybar.theme = "arin";
-		theme = "arin";
+    theme = "arin";
   };
   home.file = {
     ".wallpaper".source = ./arin.png;
