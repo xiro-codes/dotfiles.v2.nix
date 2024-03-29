@@ -41,7 +41,7 @@
   };
   preview = {
     max_preview_size = 2097152;
-    preview_script = "joshuto_preview_file"; # make sure it's marked as executable
+    preview_script = "hm-joshuto-preview-file"; # make sure it's marked as executable
   };
   search = {
     # insensitive, sensitive, smart

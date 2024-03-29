@@ -450,5 +450,91 @@
     }
   ];
   task_view.keymap = [
+    {
+      keys = ["arrow_up"];
+      commands = ["cursor_move_up"];
+    }
+    {
+      keys = ["arrow_down"];
+      commands = ["cursor_move_down"];
+    }
+    {
+      keys = ["home"];
+      commands = ["cursor_move_home"];
+    }
+    {
+      keys = ["end"];
+      commands = ["cursor_move_end"];
+    }
+    # vim-like keybindings
+    {
+      keys = ["j"];
+      commands = ["cursor_move_down"];
+    }
+    {
+      keys = ["k"];
+      commands = ["cursor_move_up"];
+    }
+    {
+      keys = ["g" "g"];
+      commands = ["cursor_move_home"];
+    }
+    {
+      keys = ["G"];
+      commands = ["cursor_move_end"];
+    }
+
+    {
+      keys = ["w"];
+      commands = ["show_tasks"];
+    }
+    {
+      keys = ["escape"];
+      commands = ["show_tasks"];
+    }
+  ];
+  help_view.keymap = [
+    {
+      keys = ["arrow_up"];
+      commands = ["cursor_move_up"];
+    }
+    {
+      keys = ["arrow_down"];
+      commands = ["cursor_move_down"];
+    }
+    {
+      keys = ["home"];
+      commands = ["cursor_move_home"];
+    }
+    {
+      keys = ["end"];
+      commands = ["cursor_move_end"];
+    }
+    # vim-like keybindings
+    {
+      keys = ["j"];
+      commands = ["cursor_move_down"];
+    }
+    {
+      keys = ["k"];
+      commands = ["cursor_move_up"];
+    }
+    {
+      keys = ["g" "g"];
+      commands = ["cursor_move_home"];
+    }
+    {
+      keys = ["G"];
+      commands = ["cursor_move_end"];
+    }
+
+    {
+      keys = ["w"];
+      commands = ["show_tasks"];
+    }
+    {
+      keys = ["escape"];
+      commands = ["show_tasks"];
+    }
   ];
 }
