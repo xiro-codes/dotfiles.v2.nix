@@ -7,15 +7,16 @@
   ...
 }: let
   inherit (lib) getExe;
+	prefix = "wm";
   sunset = writeShellApplication {
-    name = "sunset";
+    name = "${prefix}-sunset";
     runtimeInputs = [pkgs.wlsunset];
     text = ''
       wlsunset -S 6:00 -s 17:00
     '';
   };
   lock = writeShellApplication {
-    name = "lock";
+    name = "${prefix}-lock";
     runtimeInputs = [pkgs.swaylock-effects];
     text = ''
       swaylock --screenshots \
@@ -33,34 +34,34 @@
     '';
   };
 
-  launch_full_hud = pkgs.writeShellScriptBin "launch_hud" ''
-    ${pkgs.eww}/bin/eww open-many --toggle apps apps1 clock clock1 music music1
+  launch_full_hud = pkgs.writeShellScriptBin "${prefix}-launch_hud" ''
+    ${getExe pkgs.eww} open-many --toggle apps apps1 clock clock1 music music1
   '';
 
-  launch_hud_0 = pkgs.writeShellScriptBin "launch_hud_0" ''
-    ${pkgs.eww}/bin/eww open-many --toggle apps clock music
+  launch_hud_0 = pkgs.writeShellScriptBin "${prefix}-launch_hud_0" ''
+    ${getExe pkgs.eww} open-many --toggle apps clock music
   '';
 
-  launch_hud_1 = pkgs.writeShellScriptBin "launch_hud_1" ''
+  launch_hud_1 = pkgs.writeShellScriptBin "${prefix}-launch_hud_1" ''
     ${getExe pkgs.eww} open-many --toggle apps1 clock1 music1
   '';
 
-  launch_dash = writeShellScriptBin "launch_dash" ''
+  launch_dash = writeShellScriptBin "${prefix}-launch_dash" ''
     ${getExe pkgs.eww} open-many --toggle resources quotes logout lock shutdown suspend reboot;
   '';
 
-  show_dash = writeShellScriptBin "show_dash" ''
+  show_dash = writeShellScriptBin "${prefix}-show_dash" ''
     ${getExe pkgs.eww} open-many --toggle resources quotes logout lock shutdown suspend reboot;
     sleep 10;
     ${getExe pkgs.eww} close resources quotes logout lock shutdown suspend reboot;
   '';
 
-  random_wallpaper = pkgs.writeShellScriptBin "random_wallpaper" ''
+  random_wallpaper = pkgs.writeShellScriptBin "${prefix}-random_wallpaper" ''
     ${getExe pkgs.swaybg} -i $HOME/Pictures/Wallpapers/$(ls $HOME/Pictures/Wallpapers | shuf -n 1)
   '';
 
   autostart = writeShellApplication {
-    name = "autostart";
+    name = "${prefix}-autostart";
     runtimeInputs = with pkgs; [];
     text = ''
       ${getExe sunset} &
@@ -82,5 +83,5 @@ in
       random_wallpaper
       autostart
     ];
-    meta.mainProgram = "autostart";
+    meta.mainProgram = "${prefix}-autostart";
   }
