@@ -1,84 +1,81 @@
-{
-  inputs,
-  lib,
-  config,
-  pkgs,
-  ...
+{ inputs
+, lib
+, config
+, pkgs
+, ...
 }:
 with lib; let
   cfg = config.local.eww;
-in {
+  scripts = inputs.self.packages.${pkgs.system}.eww-scripts;
+in
+{
   options.local.eww.enable = mkEnableOption "eww";
   config = mkIf cfg.enable {
     # configuration
     home.packages = [
       pkgs.eww
-      pkgs.pamixer
-      pkgs.brightnessctl
-      pkgs.lua
-      pkgs.ffmpeg
-      pkgs.socat
+      inputs.self.packages.${pkgs.system}.eww-scripts
     ];
-    home.file.".config/eww/eww.scss".source = ./eww.scss;
-    home.file.".config/eww/eww.yuck".source = ./eww.yuck;
-    home.file.".config/eww/images/".source = ./images;
+    home.file = {
+      ".config/eww/eww.scss".source = ./eww.scss;
+      ".config/eww/eww.yuck".source = ./eww.yuck;
+      ".config/eww/images/".source = ./images;
+    };
 
-    # scripts
-    home.file.".config/eww/scripts/sys_info" = {
-      source = ./scripts/sys_info;
-      executable = true;
+    systemd.user.timers = {
+      weather_info = {
+        Unit.Description = "Get Weather for eww widget";
+        Timer = {
+          Unit = "weather_info";
+          OnBootSec = "1m";
+          OnUnitActiveSec = "1m";
+        };
+        Install.WantedBy = [ "timers.target" ];
+      };
     };
-    home.file.".config/eww/scripts/change-active-workspace" = {
-      source = ./scripts/change-active-workspace;
-      executable = true;
+    systemd.user.timers = {
+      refresh = {
+        Unit.Description = "Refresh eww widget";
+        Timer = {
+          Unit = "refresh";
+          OnBootSec = "1m";
+          OnUnitActiveSec = "1m";
+        };
+        Install.WantedBy = [ "timers.target" ];
+      };
     };
-    home.file.".config/eww/scripts/get-active-workspace" = {
-      source = ./scripts/get-active-workspace;
-      executable = true;
+    systemd.user.services = {
+      weather_info = {
+        Unit = { Description = "Get Weather for eww widget"; };
+        Service = {
+          Type = "oneshot";
+          ExecStart = "${scripts}/bin/weather_info --getdata";
+        };
+        Install.WantedBy = [ "default.target" ];
+      };
     };
-    home.file.".config/eww/scripts/get-workspaces" = {
-      source = ./scripts/get-workspaces;
-      executable = true;
+    systemd.user.services = {
+      refresh = {
+        Unit = { Description = "refresh hud"; };
+        Service = {
+          Type = "oneshot";
+          ExecStart = let scripts = inputs.self.packages.${pkgs.system}.hyprland-scripts; in
+            ''
+              												${scripts}/bin/wm-launch_hud
+              												'';
+          ExecStartPost = let scripts = inputs.self.packages.${pkgs.system}.hyprland-scripts; in ''
+            										${scripts}/bin/wm-launch_hud
+                          						'';
+        };
+        Install.WantedBy = [ "default.target" ];
+      };
     };
-    home.file.".config/eww/scripts/get-window-title" = {
-      source = ./scripts/get-window-title;
-      executable = true;
-    };
-    home.file.".config/eww/scripts/widget_apps" = {
-      source = ./scripts/widget_apps;
-      executable = true;
-    };
-    home.file.".config/eww/scripts/battery" = {
-      source = ./scripts/battery;
-      executable = true;
-    };
-    home.file.".config/eww/scripts/check-network" = {
-      source = ./scripts/check-network;
-      executable = true;
-    };
-    home.file.".config/eww/scripts/mails" = {
-      source = ./scripts/mails;
-      executable = true;
-    };
-    home.file.".config/eww/scripts/music_info" = {
-      source = ./scripts/music_info;
-      executable = true;
-    };
-    home.file.".config/eww/scripts/weather_info" = {
-      source = ./scripts/weather_info;
-      executable = true;
-    };
-    home.file.".config/eww/scripts/quotes" = {
-      source = ./scripts/quotes;
-      executable = true;
-    };
-    home.file.".config/eww/scripts/system" = {
-      source = ./scripts/system;
-      executable = true;
-    };
-    home.file.".config/eww/scripts/volume" = {
-      source = ./scripts/volume;
-      executable = true;
-    };
+
+    assertions = [
+      {
+        assertion = config.local.mpd.enable;
+        message = "Require mpd for all music player feature";
+      }
+    ];
   };
 }

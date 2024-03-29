@@ -15,18 +15,18 @@ UNIT="imperial"	# Available options : 'metric' or 'imperial'
 
 ## Make cache dir
 if [[ ! -d "$cache_dir" ]]; then
-	mkdir -p "${cache_dir}"
+	mkdir -p ${cache_dir}
 fi
 
 ## Get data
 get_weather_data() {
-weather=$(curl -sf "http://api.openweathermap.org/data/2.5/weather?APPID=$KEY&id=$ID&units=$UNIT")
-	echo "${weather}"
+	weather=`curl -sf "http://api.openweathermap.org/data/2.5/weather?APPID="$KEY"&id="$ID"&units="$UNIT""`
+	echo ${weather}
 
-	if [  -z "$weather" ]; then
-		weather_temp=$(echo "$weather" | jq ".main.temp" | cut -d "." -f 1)
-		weather_icon_code=$(echo "$weather" | jq -r ".weather[].icon" | head -1)
-		weather_description=$(echo "$weather" | jq -r ".weather[].description" | head -1 | sed -e "s/\b\(.\)/\u\1/g")
+	if [ ! -z "$weather" ]; then
+		weather_temp=`echo "$weather" | jq ".main.temp" | cut -d "." -f 1`
+		weather_icon_code=`echo "$weather" | jq -r ".weather[].icon" | head -1`
+		weather_description=`echo "$weather" | jq -r ".weather[].description" | head -1 | sed -e "s/\b\(.\)/\u\1/g"`
 
 		#Big long if statement of doom
 		if [ "$weather_icon_code" == "50d"  ]; then
@@ -114,17 +114,17 @@ weather=$(curl -sf "http://api.openweathermap.org/data/2.5/weather?APPID=$KEY&id
 			weather_quote="Sort of odd, I don't know what to forecast \nMake sure you have a good time!"
 			weather_hex="#adadff"
 		fi
-		echo "$weather_icon" >  "${cache_weather_icon}"
-		echo "$weather_description" > "${cache_weather_stat}"
-		echo "$weather_temp""°F" > "${cache_weather_degree}"
-		echo -e "$weather_quote" > "${cache_weather_quote}"
-		echo "$weather_hex" > "${cache_weather_hex}"
+		echo "$weather_icon" >  ${cache_weather_icon}
+		echo "$weather_description" > ${cache_weather_stat}
+		echo "$weather_temp""°F" > ${cache_weather_degree}
+		echo -e "$weather_quote" > ${cache_weather_quote}
+		echo "$weather_hex" > ${cache_weather_hex}
 	else
-		echo "Weather Unavailable" > "${cache_weather_stat}"
-		echo " " > "${cache_weather_icon}"
-		echo -e "Ah well, no weather huh? \nEven if there's no weather, it's gonna be a great day!" > "${cache_weather_quote}"
-		echo "-" > "${cache_weather_degree}"
-		echo "#adadff" > "${cache_weather_hex}"
+		echo "Weather Unavailable" > ${cache_weather_stat}
+		echo " " > ${cache_weather_icon}
+		echo -e "Ah well, no weather huh? \nEven if there's no weather, it's gonna be a great day!" > ${cache_weather_quote}
+		echo "-" > ${cache_weather_degree}
+		echo "#adadff" > ${cache_weather_hex}
 	fi
 }
 
@@ -132,16 +132,16 @@ weather=$(curl -sf "http://api.openweathermap.org/data/2.5/weather?APPID=$KEY&id
 if [[ "$1" == "--getdata" ]]; then
 	get_weather_data
 elif [[ "$1" == "--icon" ]]; then
-	cat "${cache_weather_icon}"
+	cat ${cache_weather_icon}
 elif [[ "$1" == "--temp" ]]; then
-	cat "${cache_weather_degree}"
+	cat ${cache_weather_degree}
 elif [[ "$1" == "--hex" ]]; then
-	cat "${cache_weather_hex}"
+	cat ${cache_weather_hex}
 elif [[ "$1" == "--stat" ]]; then
-	cat "${cache_weather_stat}"
+	cat ${cache_weather_stat}
 elif [[ "$1" == "--quote" ]]; then
-	cat < "${cache_weather_quote}" | head -n1
+	cat ${cache_weather_quote} | head -n1
 elif [[ "$1" == "--quote2" ]]; then
-	cat < "${cache_weather_quote}" | tail -n1
+	cat ${cache_weather_quote} | tail -n1
 fi
 

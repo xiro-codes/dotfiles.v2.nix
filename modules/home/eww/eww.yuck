@@ -6,24 +6,19 @@
 ;; ** Variables ***********************************************************************
 
 ;; Music vars
-(defpoll SONG :interval "1s" `scripts/music_info --song`)
-(defpoll ARTIST :interval "1s" `scripts/music_info --artist`)
-(defpoll COVER :interval "1s" `scripts/music_info --cover`)
-(defpoll STATUS :interval "1s" `scripts/music_info --status`)
+(defpoll SONG :interval "1s" `eww-music_info --song`)
+(defpoll ARTIST :interval "1s" `eww-music_info --artist`)
+(defpoll COVER :interval "1s" `eww-music_info --cover`)
+(defpoll STATUS :interval "1s" `eww-music_info --status`)
 
 ;; Clock vars
 (defpoll TIME :interval "5s" `date +\"%H:%M\"`)
-(defpoll DATE :interval "5s" `date +\"%A, %B %d\"`)
+(defpoll DATE :interval "5s" `date +\"%a, %B %d\"`)
 
 ;; Weather vars
-(defpoll _data :interval "5m" `scripts/weather_info --getdata`)
-(defpoll ICON :interval "15m" `scripts/weather_info --icon`)
-(defpoll TEMP :interval "15m" `scripts/weather_info --temp`)
-(defpoll HEX :interval "15m" `scripts/weather_info --hex`)
-
-;; Workspaces vars
-(deflisten workspaces :initial "[]" "scripts/get-workspaces")
-(deflisten current_workspace :initial "1" "scripts/get-active-workspace")
+(defpoll ICON :interval "5m" `eww-weather_info --icon`)
+(defpoll TEMP :interval "5m" `eww-weather_info --temp`)
+(defpoll HEX :interval "5m" `eww-weather_info --hex`)
 
 ;; apps
 (defwidget apps [] 
@@ -34,7 +29,7 @@
 				(button :style "background-image: url('images/icons/apps/firefox.png');" :class "appicon" :onclick "systemd-run --user librewolf")
 				(button :style "background-image: url('images/icons/apps/files.png');" :class "appicon" :onclick "systemd-run --user pcmanfm ")
 				(button :style "background-image: url('images/icons/apps/notes.png');" :class "appicon" :onclick "systemd-run --user obsidian")
-				(box (button :class "album_art" :style "background-image: url('${COVER}');" :onclick "eww open --toggle music"))
+				(box (button :class "album_art" :style "background-image: url('${COVER}');" :onclick "systemd-run --user kitty --class=MusicPlayer ncmpcpp"))
 			)
 		)
 )
@@ -61,25 +56,11 @@
 					(label :class "song" :halign "start" :wrap "false" :limit-width 18 :text SONG)
 					(label :class "artist" :halign "start" :wrap "false" :limit-width 20 :text ARTIST)))
 			(box :class "musicbuttons" :orientation "h" :spacing 10 :valign "center" :halign "end" :space-evenly "false" :vexpand "false" :hexpand "false"
-				(button :style "background-image: url('images/icons/music/previous-button.png');" :class "trackbutton" :onclick "scripts/music_info --prev")
-				(button :style "background-image: url('${STATUS}');" :class "playbutton" :onclick "scripts/music_info --toggle")
-				(button :style "background-image: url('images/icons/music/next-button.png');" :class "trackbutton" :onclick "scripts/music_info --next"))))
+				(button :style "background-image: url('images/icons/music/previous-button.png');" :class "trackbutton" :onclick "eww-music_info --prev")
+				(button :style "background-image: url('${STATUS}');" :class "playbutton" :onclick "eww-music_info --toggle")
+				(button :style "background-image: url('images/icons/music/next-button.png');" :class "trackbutton" :onclick "eww-music_info --next"))))
 
 
-(defwidget workspaces []
-  (eventbox :onscroll "scripts/change-active-workspace {} ${current_workspace}" :class "dockbox"
-    (box :space-evenly true :class "workspacebox"
-      (label :text "${workspaces}${current_workspace}" :visible false :class "workspace")
-      ;;(for workspace in workspaces
-      ;;  (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
-      ;;    (box :class "workspace ${workspace.id == current_workspace ? "current" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
-      ;;      (label :text "${workspace.id}")
-      ;;    )
-      ;;  )
-      ;;)
-    )
-  )
-  )
 
 ;; apps
 (defwindow apps
@@ -159,31 +140,6 @@
            :wm-ignore false
 (clock))
 
-(defwindow workspaces 
-					 :monitor 0 
-					 :geometry (geometry :x "754px" 
-															 :y "4px" 
-															 :width "200px" 
-															 :height "60px" 
-															 :anchor "top left") 
-					 :stacking "fg" 
-					 :reserve (struts :distance "80px" :side "top")
-					 :windowtype "dock"
-					 :wm-ignore false
-(workspaces))
-(defwindow workspaces1
-					 :monitor 1 
-					 :geometry (geometry :x "754px" 
-															 :y "4px" 
-															 :width "200px" 
-															 :height "60px" 
-															 :anchor "top left") 
-					 :stacking "fg" 
-					 :reserve (struts :distance "80px" :side "top")
-					 :windowtype "dock"
-					 :wm-ignore false
-(workspaces))
-
 ;; dash board
 ;; **
 ;; ** Widgets config for EWW
@@ -194,12 +150,10 @@
 
 ;; System vars
 (defpoll HOST :interval "5s" `hostname`)
-(defpoll CPU_USAGE :interval "1s" `./scripts/sys_info --cpu`)
-(defpoll MEM_USAGE :interval "1s" `./scripts/sys_info --mem`)
-(defpoll DISK_USAGE :interval "1s" `./scripts/sys_info --disk`)
-(defpoll BLIGHT :interval "1s" `./scripts/sys_info --blight`)
-(defpoll BATTERY :interval "5s" `./scripts/sys_info --bat`)
-(defpoll QUOTE :interval "5m" `./scripts/quotes`)
+(defpoll CPU_USAGE :interval "1s" `eww-sys_info --cpu`)
+(defpoll MEM_USAGE :interval "1s" `eww-sys_info --mem`)
+(defpoll DISK_USAGE :interval "1s" `eww-sys_info --disk`)
+(defpoll QUOTE :interval "5m" `eww-quotes`)
 
 ;; ** Widgets *************************************************************************
 
@@ -226,19 +180,19 @@
 ;; powermenus
 (defwidget logout [] 
 		(box :class "winbox"
-			(button :style "background-image: url('./images/icons/system/sys-exit.png');" :class "powericons" :valign "center" :halign "center" :onclick "./scripts/system --logout")))
+			(button :style "background-image: url('./images/icons/system/sys-exit.png');" :class "powericons" :valign "center" :halign "center" :onclick "system --logout")))
 (defwidget suspend [] 
 		(box :class "winbox"
-			(button :style "background-image: url('./images/icons/system/sys-sleep.png');" :class "powericons" :valign "center" :halign "center" :onclick "./scripts/system --suspend")))
+			(button :style "background-image: url('./images/icons/system/sys-sleep.png');" :class "powericons" :valign "center" :halign "center" :onclick "system --suspend")))
 (defwidget lock [] 
 		(box :class "winbox"
-			(button :style "background-image: url('./images/icons/system/sys-lock.png');" :class "powericons" :valign "center" :halign "center" :onclick "./scripts/system --lock")))
+			(button :style "background-image: url('./images/icons/system/sys-lock.png');" :class "powericons" :valign "center" :halign "center" :onclick "system --lock")))
 (defwidget reboot [] 
 		(box :class "winbox"
-			(button :style "background-image: url('./images/icons/system/sys-reboot.png');" :class "powericons" :valign "center" :halign "center" :onclick "./scripts/system --reboot")))
+			(button :style "background-image: url('./images/icons/system/sys-reboot.png');" :class "powericons" :valign "center" :halign "center" :onclick "system --reboot")))
 (defwidget shutdown [] 
 		(box :class "winbox"
-			(button :style "background-image: url('./images/icons/system/poweroff.png');" :class "powericons" :valign "center" :halign "center" :onclick "./scripts/system --shutdown")))
+			(button :style "background-image: url('./images/icons/system/poweroff.png');" :class "powericons" :valign "center" :halign "center" :onclick "system --shutdown")))
 
 ;; quotes
 (defwidget quotes [] 
