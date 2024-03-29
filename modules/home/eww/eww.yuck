@@ -180,19 +180,19 @@
 ;; powermenus
 (defwidget logout [] 
 		(box :class "winbox"
-			(button :style "background-image: url('./images/icons/system/sys-exit.png');" :class "powericons" :valign "center" :halign "center" :onclick "system --logout")))
+			(button :style "background-image: url('./images/icons/system/sys-exit.png');" :class "powericons" :valign "center" :halign "center" :onclick "eww-system --logout")))
 (defwidget suspend [] 
 		(box :class "winbox"
-			(button :style "background-image: url('./images/icons/system/sys-sleep.png');" :class "powericons" :valign "center" :halign "center" :onclick "system --suspend")))
+			(button :style "background-image: url('./images/icons/system/sys-sleep.png');" :class "powericons" :valign "center" :halign "center" :onclick "eww-system --suspend")))
 (defwidget lock [] 
 		(box :class "winbox"
-			(button :style "background-image: url('./images/icons/system/sys-lock.png');" :class "powericons" :valign "center" :halign "center" :onclick "system --lock")))
+			(button :style "background-image: url('./images/icons/system/sys-lock.png');" :class "powericons" :valign "center" :halign "center" :onclick "eww-system --lock")))
 (defwidget reboot [] 
 		(box :class "winbox"
-			(button :style "background-image: url('./images/icons/system/sys-reboot.png');" :class "powericons" :valign "center" :halign "center" :onclick "system --reboot")))
+			(button :style "background-image: url('./images/icons/system/sys-reboot.png');" :class "powericons" :valign "center" :halign "center" :onclick "eww-system --reboot")))
 (defwidget shutdown [] 
 		(box :class "winbox"
-			(button :style "background-image: url('./images/icons/system/poweroff.png');" :class "powericons" :valign "center" :halign "center" :onclick "system --shutdown")))
+			(button :style "background-image: url('./images/icons/system/poweroff.png');" :class "powericons" :valign "center" :halign "center" :onclick "eww-system --shutdown")))
 
 ;; quotes
 (defwidget quotes [] 
