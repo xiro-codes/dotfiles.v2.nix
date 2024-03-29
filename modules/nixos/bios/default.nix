@@ -1,25 +1,30 @@
-{ pkgs, config, lib, inputs, ... }:
-let
+{
+  pkgs,
+  config,
+  lib,
+  inputs,
+  ...
+}: let
   cfg = config.local;
   self = cfg.boot.bios;
   inherit (lib) mkOption mkIf mkMerge types mkDefault;
-
-
-in
-{
+in {
   options.local.boot.bios = {
-    enable = mkOption { type = types.bool; default = false; };
+    enable = mkOption {
+      type = types.bool;
+      default = false;
+    };
   };
-  config = (mkIf (self.enable) {
+  config = mkIf (self.enable) {
     boot.loader = {
       systemd-boot.enable = false;
       grub.useOSProber = true;
     };
     assertions = [
       {
-        assertion = !cfg.boot.efi;
+        assertion = !(cfg.boot.efi.bootloader == "");
         message = "BIO's || UEFI";
       }
     ];
-  });
+  };
 }

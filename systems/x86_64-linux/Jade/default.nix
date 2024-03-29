@@ -12,18 +12,26 @@
   local = {
     settings.enable = true;
     desktops = {
-      enable = true;
+      enable = false;
+      useEnv = true;
       enableNiri = true;
     };
-    anime-hub.enable = true;
+    boot.efi.bootloader = "none";
   };
   environment.systemPackages = with pkgs; [
   ];
   networking = {
-    useDHCP = true;
+    useDHCP = lib.mkForce true;
     firewall.enable = true;
+    networkmanager = {
+      enable = true;
+      wifi.backend = "iwd";
+    };
+    wireless = {
+      enable = false;
+      iwd.enable = true;
+    };
   };
-  virtualisation.docker.enable = true;
   users.users.tod = {
     name = "tod";
     isNormalUser = true;
@@ -37,6 +45,12 @@
   };
   services = {
     openssh.enable = true;
+  };
+  formatConfigs.install-iso = {
+    config,
+    modulesPath,
+    ...
+  }: {
   };
   system.stateVersion = "24.05";
 }

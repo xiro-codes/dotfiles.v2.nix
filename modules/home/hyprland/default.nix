@@ -11,10 +11,6 @@ with lib; let
   cfg = config.local;
 
   variables = config.home.sessionVariables;
-
-  hide_waybar = pkgs.writeShellScriptBin "hide_waybar" ''
-    kill -SIGUSR1 $(pidof waybar)
-  '';
 in {
   options.local.hyprland = {
     enable = mkOption {
@@ -48,11 +44,13 @@ in {
     };
   };
   config = mkIf (cfg.hyprland.enable) {
-    home.packages = with pkgs; [
-      wl-clipboard
-      libnotify
-      cliphist
-    ];
+    home.packages = with pkgs;
+      [
+        wl-clipboard
+        libnotify
+        cliphist
+      ]
+      ++ [inputs.self.packages.${pkgs.system}.hyprland-scripts];
     wayland.windowManager.hyprland = {
       enable = true;
       systemd.enable = true;
@@ -81,8 +79,8 @@ in {
           active_opacity = "1.0";
           fullscreen_opacity = "1";
         };
-        "$mod" = "ALT_L";
-        "$super" = "SUPER_L";
+        "$mod" = "SUPER_L";
+        "$super" = "ALT_L";
 
         windowrule = [
           "float, ^(mkitty)$"
@@ -105,8 +103,7 @@ in {
           "wl-paste --type text --watch cliphist store"
           "steam -silent"
           "${getExe hyprland-scripts}"
-          "${hyprland-scripts}/bin/random_wallpaper"
-          ''${pkgs.swayidle}/bin/swayidle lock "${hyprland-scripts}/bin/lock"''
+          ''${pkgs.swayidle}/bin/swayidle lock "${hyprland-scripts}/bin/wm-lock"''
         ];
         monitor =
           map
@@ -129,15 +126,13 @@ in {
           "$mod, E, exec, ${variables.GUI_FILEMANAGER}"
           "$mod_SHIFT, E, exec, ${variables.FILEMANAGER}"
 
-          "$mod, X, exec, ${hide_waybar}/bin/hide_waybar"
-
           "$mod, P, exec, ${variables.LAUNCHER} -show drun -show-icons"
 
           "$mod, Space, layoutmsg, swapwithmaster master"
 
           "$mod_SHIFT, Q, killactive"
 
-          "$mod, Backspace, exec, ${hyprland-scripts}/bin/show_dash"
+          "$mod, Backspace, exec, ${hyprland-scripts}/bin/wm-show_dash"
 
           "$mod, F, fullscreen"
           "$mod_SHIFT, F, togglefloating"
@@ -147,10 +142,16 @@ in {
           "$mod, K, movefocus, u"
           "$mod, L, movefocus, r"
 
-          "$mod_SHIFT, H, movewindow, l"
-          "$mod_SHIFT, J, movewindow, d"
-          "$mod_SHIFT, K, movewindow, u"
-          "$mod_SHIFT, L, movewindow, r"
+          "$super, J, layoutmsg, cyclenext"
+
+          "$super, K, layoutmsg, cycleprev"
+
+          "$mod_SHIFT, J, layoutmsg, swapnext"
+          "$mod_SHIFT, K, layoutmsg, swapprev"
+          #"$mod_SHIFT, H, movewindow, l"
+          #"$mod_SHIFT, J, movewindow, d"
+          #"$mod_SHIFT, K, movewindow, u"
+          #"$mod_SHIFT, L, movewindow, r"
 
           "$mod, U, workspace, 1"
           "$mod, I, workspace, 2"

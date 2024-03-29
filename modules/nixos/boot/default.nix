@@ -1,15 +1,22 @@
-{ pkgs, config, lib, inputs, ... }:
-let
+{
+  pkgs,
+  config,
+  lib,
+  inputs,
+  ...
+}: let
   cfg = config.local;
   self = cfg.boot;
 
   inherit (lib) mkOption mkIf mkMerge types mkDefault;
-in
-{
+in {
   options.local.boot = {
-    timeout = mkOption { type = types.int; default = 5; };
+    timeout = mkOption {
+      type = types.int;
+      default = 5;
+    };
   };
   config = {
-    boot.loader.timeout = self.timeout;
+    boot.loader.timeout = lib.mkDefault self.timeout;
   };
 }

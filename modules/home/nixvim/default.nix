@@ -5,7 +5,7 @@
   inputs,
   ...
 }: let
-  inherit (lib) mkOption mkIf types;
+  inherit (lib) mkOption mkIf types getExe;
   cfg = config.local;
 in {
   imports = [];
@@ -22,6 +22,7 @@ in {
       enable = true;
       extraPlugins = [
         {plugin = pkgs.vimPlugins.zoxide-vim;}
+        {plugin = pkgs.vimPlugins.fzf-vim;}
       ];
       globals.mapleader = ";";
       options = {
@@ -129,9 +130,22 @@ in {
       ];
       clipboard.register = "unnamedplus";
       extraConfigLua = ''
-            HOME = os.getenv("HOME")
-            vim.opt.undodir = HOME .. "/.config/nvim/undo"
+        HOME = os.getenv("HOME")
+        vim.opt.undodir = HOME .. "/.config/nvim/undo"
         vim.o.background = "light"
+        --require("lazy").setup({
+        --	{
+        --		"codethread/qmk.nvim", main = "qmk", opts = {
+        --			name = "LAYOUT_ortho_4x12",
+        --			layout = {
+        --				'x x x x x x x x x x x x',
+        --				'x x x x x x x x x x x x',
+        --				'x x x x x x x x x x x x',
+        --				'x x x x x x x x x x x x',
+        --			},
+        --		},
+        --	}
+        --})
         if vim.g.neovide then
         	vim.o.guifont = "Cascadia Code:h10"
         	vim.g.neovide_cursor_vfx_mode = "railgun"
@@ -149,10 +163,10 @@ in {
           enable = true;
           currentLine = true;
         };
+        lazy.enable = true;
         lspkind.enable = true;
         luasnip.enable = true;
         neo-tree.enable = true;
-        nvim-lightbulb.enable = true;
         rustaceanvim = {
           enable = true;
           server.settings = {
@@ -169,17 +183,17 @@ in {
         cmp.enable = true;
         cmp.settings = {
           mapping = {
-            "<C-P>" = "cmp.mapping.complete()";
+            "<C-q>" = "cmp.mapping.complete()";
             "<C-d>" = "cmp.mapping.scroll_docs(-4)";
             "<C-e>" = "cmp.mapping.close()";
             "<C-f>" = "cmp.mapping.scroll_docs(4)";
-            "<C-Tab>" = "cmp.mapping.confirm({ select = true })";
+            "<CR>" = "cmp.mapping.confirm({ select = true })";
             "<C-n>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
-            "<C-S-n>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
+            "<C-p>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
           };
           sources = [
             {name = "nvim_lsp";}
-            {name = "copilot";}
+            {name = "copliot";}
           ];
           snippet = {
             expand = "function(args) require('luasnip').lsp_expand(args.body) end";
@@ -188,18 +202,32 @@ in {
         lsp = {
           enable = true;
           keymaps.lspBuf = {
-            K = "hover";
+            sh = "hover";
             gD = "references";
             gd = "definition";
             gi = "implementation";
             gt = "type_definition";
+            rn = "rename";
             "<leader>df" = "format";
+            #"<leader>ca" = "codeactions";
           };
           servers = {
             nil_ls.enable = true;
             gleam.enable = true;
-            nixd.enable = true;
-            ccls.enable = true;
+            nixd = {
+              enable = true;
+              settings = {
+                eval = {
+                  depth = 10;
+                  workers = 8;
+                };
+                options = {
+                  enable = true;
+                  target = {installable = ".#nixosConfigurations.Sapphire.options";};
+                };
+                formatting.command = "${getExe pkgs.alejandra}";
+              };
+            };
           };
         };
       };

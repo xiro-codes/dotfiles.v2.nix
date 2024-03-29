@@ -28,7 +28,6 @@
     duf
     dust
     lazygit
-    flowblade
   ];
 
   fonts.fontconfig.enable = true;

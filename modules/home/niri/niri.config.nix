@@ -212,12 +212,12 @@
 
       // Mod-Shift-/, which is usually the same as Mod-?,
       // shows a list of important hotkeys.
-      Alt+Shift+Semicolon { show-hotkey-overlay; }
+      Mod+Shift+Semicolon { show-hotkey-overlay; }
 
       // Suggested binds for running programs: terminal, app launcher, screen locker.
-      Alt+T { spawn "kitty"; }
-      Alt+P { spawn "rofi -show run -show-icons"; }
-      Alt+Backspace { spawn "rofi -show power-menu -modi power-menu:rofi-powermenu"; }
+      Mod+T { spawn "kitty"; }
+      Mod+P { spawn "rofi -show run -show-icons"; }
+      Mod+Backspace { spawn "rofi -show power-menu -modi power-menu:rofi-powermenu"; }
 
       // You can also use a shell:
       // Mod+T { spawn "bash" "-c" "notify-send hello && exec alacritty"; }
@@ -226,28 +226,17 @@
       XF86AudioRaiseVolume { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
       XF86AudioLowerVolume { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"; }
 
-      Alt+Q { close-window; }
+      Mod+Q { close-window; }
 
-      Alt+H     { focus-column-left; }
-      Alt+J     { focus-window-down; }
-      Alt+K     { focus-window-up; }
-      Alt+L     { focus-column-right; }
+      Mod+H     { focus-column-left; }
+      Mod+J     { focus-window-down; }
+      Mod+K     { focus-window-up; }
+      Mod+L     { focus-column-right; }
 
-      Alt+Shift+H     { move-column-left; }
-      Alt+Shift+J     { move-window-down; }
-      Alt+Shift+K     { move-window-up; }
-      Alt+Shift+L     { move-column-right; }
-
-      // Alternative commands that move across workspaces when reaching
-      // the first or last window in a column.
-      Alt+U     { focus-monitor-down; }
-      Alt+I     { focus-monitor-up; }
-
-      Alt+Shift+U     { move-column-to-monitor-down; }
-      Alt+Shift+I     { move-column-to-monitor-up; }
-
-      Mod+Shift+Ctrl+H     { move-column-to-monitor-left; }
-      Mod+Shift+Ctrl+L     { move-column-to-monitor-right; }
+      Mod+Shift+H     { move-column-left; }
+      Mod+Shift+J     { move-window-down; }
+      Mod+Shift+K     { move-window-up; }
+      Mod+Shift+L     { move-column-right; }
 
       // Alternatively, there are commands to move just a single window:
       // Mod+Shift+Ctrl+Left  { move-window-to-monitor-left; }
