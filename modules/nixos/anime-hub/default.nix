@@ -33,25 +33,25 @@ in
         };
 
         containers = {
-          mediaFolder = "/mnt/backup/videos/Anime";
+          mediaFolder = "/mnt/hdd/videos/";
           #portRange = range 8000 9000;
           pihole = {
-            enable = true;
+            enable = false;
             domainName = "ruby.admin";
             hostPort = 8080;
           };
           komga = {
-            enable = true;
+            enable = false;
             domainName = "ruby.library";
             hostPort = 8081;
           };
           lanraragi = {
-            enable = true;
+            enable = false;
             domainName = "ruby.lanraragi";
             hostPort = 8084;
           };
           jellyfin = {
-            enable = true;
+            enable = false;
             domainName = "ruby.media";
             hostPort = 8082;
           };

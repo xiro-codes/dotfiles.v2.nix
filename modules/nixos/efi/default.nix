@@ -1,20 +1,21 @@
-{ pkgs, config, lib, inputs, ... }:
-let
+{
+  pkgs,
+  config,
+  lib,
+  inputs,
+  ...
+}: let
   cfg = config.local;
   self = cfg.boot.efi;
   inherit (lib) mkOption mkIf mkMerge types mkDefault;
-
-
-in
-{
+in {
   options.local.boot.efi = {
-    enable = mkOption { type = types.bool; default = false; };
     bootloader = mkOption {
-      type = types.enum [ "grub" "systemd-boot" ];
-      default = "systemd-boot";
+      type = types.enum ["none" "grub" "systemd-boot"];
+      default = "none";
     };
   };
-  config = (mkIf (self.enable) mkMerge [
+  config = mkMerge [
     (mkIf (self.bootloader == "systemd-boot") {
       boot.loader = {
         systemd-boot = {
@@ -35,13 +36,13 @@ in
         };
       };
     })
-    ({
+    {
       assertions = [
         {
-          assertion = !cfg.bios.enable;
+          assertion = !cfg.boot.bios.enable;
           message = "BIO's || UEFI";
         }
       ];
-    })
-  ]);
+    }
+  ];
 }

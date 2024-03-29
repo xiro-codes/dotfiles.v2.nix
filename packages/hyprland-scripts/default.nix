@@ -7,7 +7,7 @@
   ...
 }: let
   inherit (lib) getExe;
-	prefix = "wm";
+  prefix = "wm";
   sunset = writeShellApplication {
     name = "${prefix}-sunset";
     runtimeInputs = [pkgs.wlsunset];

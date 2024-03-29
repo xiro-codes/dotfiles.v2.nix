@@ -30,6 +30,10 @@
     hyprland.url = "github:hyprwm/Hyprland";
     nixvim.url = "github:nix-community/nixvim";
     neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs = {
     self,
@@ -44,6 +48,7 @@
       systems.modules.nixos = with inputs; [
         disko.nixosModules.default
         nh.nixosModules.default
+        nixos-generators.nixosModules.all-formats
       ];
 
       systems.hosts.Ruby.modules = with inputs; [

@@ -1,14 +1,14 @@
-{ inputs
-, lib
-, config
-, pkgs
-, ...
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  ...
 }:
 with lib; let
   cfg = config.local.eww;
   scripts = inputs.self.packages.${pkgs.system}.eww-scripts;
-in
-{
+in {
   options.local.eww.enable = mkEnableOption "eww";
   config = mkIf cfg.enable {
     # configuration
@@ -30,7 +30,7 @@ in
           OnBootSec = "1m";
           OnUnitActiveSec = "1m";
         };
-        Install.WantedBy = [ "timers.target" ];
+        Install.WantedBy = ["timers.target"];
       };
     };
     systemd.user.timers = {
@@ -41,33 +41,36 @@ in
           OnBootSec = "1m";
           OnUnitActiveSec = "1m";
         };
-        Install.WantedBy = [ "timers.target" ];
+        Install.WantedBy = ["timers.target"];
       };
     };
     systemd.user.services = {
       weather_info = {
-        Unit = { Description = "Get Weather for eww widget"; };
+        Unit = {Description = "Get Weather for eww widget";};
         Service = {
           Type = "oneshot";
           ExecStart = "${scripts}/bin/weather_info --getdata";
         };
-        Install.WantedBy = [ "default.target" ];
+        Install.WantedBy = ["default.target"];
       };
     };
     systemd.user.services = {
       refresh = {
-        Unit = { Description = "refresh hud"; };
+        Unit = {Description = "refresh hud";};
         Service = {
           Type = "oneshot";
-          ExecStart = let scripts = inputs.self.packages.${pkgs.system}.hyprland-scripts; in
-            ''
-              												${scripts}/bin/wm-launch_hud
-              												'';
-          ExecStartPost = let scripts = inputs.self.packages.${pkgs.system}.hyprland-scripts; in ''
-            										${scripts}/bin/wm-launch_hud
-                          						'';
+          ExecStart = let
+            scripts = inputs.self.packages.${pkgs.system}.hyprland-scripts;
+          in ''
+            ${scripts}/bin/wm-launch_hud
+          '';
+          ExecStartPost = let
+            scripts = inputs.self.packages.${pkgs.system}.hyprland-scripts;
+          in ''
+            ${scripts}/bin/wm-launch_hud
+          '';
         };
-        Install.WantedBy = [ "default.target" ];
+        Install.WantedBy = ["default.target"];
       };
     };
 
