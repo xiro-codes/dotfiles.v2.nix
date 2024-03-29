@@ -22,7 +22,7 @@ in {
         name = "CascadiaCode";
         size = 10;
       };
-      extraConfig = lib.readFile (./themes/${cfg.theme}.conf);
+      extraConfig = lib.readFile ./themes/${cfg.theme}.conf;
     };
   };
 }

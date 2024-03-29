@@ -11,7 +11,7 @@ in {
   options.local.lf = {
     enable = mkOption {
       type = types.bool;
-      default = cfg.enable;
+      default = false;
     };
   };
   config = mkIf (cfg.lf.enable) {

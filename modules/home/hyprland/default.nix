@@ -6,46 +6,15 @@
   ...
 }:
 with lib; let
+  inherit (inputs.self.packages.${pkgs.system}) hyprland-scripts;
+  inherit (inputs.self.lib) reduce;
   cfg = config.local;
+
   variables = config.home.sessionVariables;
+
   hide_waybar = pkgs.writeShellScriptBin "hide_waybar" ''
-		kill -SIGUSR1 $(pidof waybar)
-	'';
-  reduce = f: list: (foldl f (head list) (tail list));
-
-  sunset = pkgs.writeShellScriptBin "sunset" ''
-    ${pkgs.wlsunset}/bin/wlsunset -S 6:00 -s 17:00
+    kill -SIGUSR1 $(pidof waybar)
   '';
-  swaylock = pkgs.writeShellScriptBin "swaylock" ''
-    ${pkgs.swaylock-effects}/bin/swaylock --screenshots \
-          --clock \
-          --indicator \
-          --datestr "%m-%d" \
-          --effect-blur 7x5 \
-          --ring-color 282828\
-          --key-hl-color 9ECE6A \
-          --text-color 7DCFFF \
-          --line-color 00000000 \
-          --inside-color 00000088 \
-          --separator-color 00000000 \
-          --effect-pixelate 40
-  '';
-
-  launch_hud = pkgs.writeShellScriptBin "launch_hud" ''
-		${pkgs.eww}/bin/eww open-many --toggle apps apps1 clock clock1 music music1
-  '';
-
-  launch_dash = pkgs.writeShellScriptBin "launch_dash" ''
-		${pkgs.eww}/bin/eww open-many --toggle resources quotes logout lock shutdown suspend reboot; 
-  '';
-
-	show_dash = pkgs.writeShellScriptBin "show_dash" ''
-		${pkgs.eww}/bin/eww open-many --toggle resources quotes logout lock shutdown suspend reboot; 
-		sleep 10;
-		${pkgs.eww}/bin/eww close resources quotes logout lock shutdown suspend reboot; 
-	'';
-
-	hyprland_scripts = pkgs.symlinkJoin { name = "hyprland_scripts"; paths = [ show_dash launch_hud launch_dash swaylock sunset]; postBuild = "echo links added"; };
 in {
   options.local.hyprland = {
     enable = mkOption {
@@ -79,28 +48,15 @@ in {
     };
   };
   config = mkIf (cfg.hyprland.enable) {
-    home.packages = with pkgs;
-      [
-        wl-clipboard
-        espeak
-        libnotify
-        cliphist
-        wtype
-        bc
-      ]
-      ++ [
-				hyprland_scripts
-      ];
-    wayland.windowManager = {
-      hyprland.enable = true;
-      hyprland.systemd.enable = true;
-      hyprland.extraConfig = ''
-        input {
-          follow_mouse = 1
-          mouse_refocus = false
-        }
-      '';
-      hyprland.settings = {
+    home.packages = with pkgs; [
+      wl-clipboard
+      libnotify
+      cliphist
+    ];
+    wayland.windowManager.hyprland = {
+      enable = true;
+      systemd.enable = true;
+      settings = {
         general = {
           layout = "master";
           border_size = "2";
@@ -108,6 +64,10 @@ in {
           "col.inactive_border" = "rgba(595959aa)";
           "gaps_in" = "2";
           "gaps_out" = "68,4,4,70";
+        };
+        input = {
+          follow_mouse = "1";
+          mouse_refocus = false;
         };
         master = {
           new_is_master = false;
@@ -144,10 +104,9 @@ in {
         exec-once = [
           "wl-paste --type text --watch cliphist store"
           "steam -silent"
-          "${sunset}/bin/sunset"
-          "${pkgs.swaybg}/bin/swaybg -i ${cfg.hyprland.wallpaperPath}"
-          ''${pkgs.swayidle}/bin/swayidle lock "${swaylock}/bin/swaylock"''
-					''${launch_hud}/bin/launch_hud''
+          "${getExe hyprland-scripts}"
+          "${hyprland-scripts}/bin/random_wallpaper"
+          ''${pkgs.swayidle}/bin/swayidle lock "${hyprland-scripts}/bin/lock"''
         ];
         monitor =
           map
@@ -164,15 +123,21 @@ in {
         workspace = reduce (cs: s: cs ++ s) (map (m: map (w: "${m.name}, ${toString w}") m.workspaces) (cfg.hyprland.monitors));
 
         bind = [
-          "$mod, Return, exec, warp-terminal-wayland"
-          "$mod, E, exec, ${variables.FILEMANAGER}"
-					"$mod, X, exec, ${hide_waybar}/bin/hide_waybar"
+          "$mod, Return, exec, ${variables.GUI_TERMINAL}"
+          "$mod_SHIFT, Return, exec, ${variables.TERMINAL}"
+
+          "$mod, E, exec, ${variables.GUI_FILEMANAGER}"
+          "$mod_SHIFT, E, exec, ${variables.FILEMANAGER}"
+
+          "$mod, X, exec, ${hide_waybar}/bin/hide_waybar"
+
           "$mod, P, exec, ${variables.LAUNCHER} -show drun -show-icons"
+
           "$mod, Space, layoutmsg, swapwithmaster master"
 
           "$mod_SHIFT, Q, killactive"
-			
-          "$mod, Backspace, exec, ${show_dash}/bin/show_dash"
+
+          "$mod, Backspace, exec, ${hyprland-scripts}/bin/show_dash"
 
           "$mod, F, fullscreen"
           "$mod_SHIFT, F, togglefloating"
@@ -209,11 +174,5 @@ in {
         ];
       };
     };
-    assertions = [
-      {
-        assertion = config.local.rofi.enable;
-        message = "hyprland depends on rofi";
-      }
-    ];
   };
 }

@@ -16,6 +16,6 @@ in {
   };
   config = mkIf (cfg.nnn.enable) {
     programs.nnn.enable = true;
-    local.fileManager = "${config.programs.nnn.finalPackage}/bin/nnn";
+    local.fileManager = "${lib.getExe config.programs.nnn.finalPackage}";
   };
 }

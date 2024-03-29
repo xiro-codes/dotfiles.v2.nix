@@ -20,26 +20,23 @@ in {
       zoxide = {
         enable = true;
       };
-			atuin.enable = true;
-
       fish = {
         enable = true;
         shellAbbrs = {
           ls = "eza --icons always";
           gcd = ''git commit -m "$(date)"'';
           osb = ''nh os switch'';
-					hmb = ''nh home switch'';
+          hmb = ''nh home switch'';
           cd = "z";
           tcd = "cd \$(mktemp -d)";
           lsa = "eza --icons always --all";
-					lgit = "lazygit";
-					ranger = "joshuto";
-					du = "dust";
-					df = "duf";
+          lgit = "lazygit";
+          fm = "joshuto";
+          du = "dust";
+          df = "duf";
         };
-				functions = {
-					fish_prompt = ''string join "" -- (prompt_pwd --full-length-dirs 1) ">" '';
-				};
+        functions = {
+        };
         #fish_vi_key_bindings
         interactiveShellInit = ''
           set -g fish_color_normal 3760bf
@@ -63,7 +60,6 @@ in {
           set -g fish_pager_color_description 848cb5
           set -g fish_pager_color_selected_background --background=b6bfe2
           zoxide init fish | source
-					atuin init fish | source 
         '';
       };
     };

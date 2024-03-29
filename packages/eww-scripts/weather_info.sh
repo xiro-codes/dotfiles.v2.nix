@@ -124,7 +124,7 @@ get_weather_data() {
 		echo " " > ${cache_weather_icon}
 		echo -e "Ah well, no weather huh? \nEven if there's no weather, it's gonna be a great day!" > ${cache_weather_quote}
 		echo "-" > ${cache_weather_degree}
-		echo "#adadff" > ${tcache_weather_hex}
+		echo "#adadff" > ${cache_weather_hex}
 	fi
 }
 

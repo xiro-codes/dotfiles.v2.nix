@@ -94,10 +94,10 @@ in {
         idle
         disable
       ];
-    xdg.configFile."niri/config.kdl".text = import ./niri.config.nix {  
-				inherit pkgs; 
-				monitors = cfg.niri.monitors; 
-				wallpaperPath = cfg.niri.wallpaperPath; 
-		};
+    xdg.configFile."niri/config.kdl".text = import ./niri.config.nix {
+      inherit pkgs;
+      monitors = cfg.niri.monitors;
+      wallpaperPath = cfg.niri.wallpaperPath;
+    };
   };
 }
