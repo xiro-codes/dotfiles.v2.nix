@@ -124,6 +124,7 @@ in {
       openFirewall = true;
     };
     openssh.enable = true;
+    openssh.settings.PermitRootLogin = "yes";
     gvfs.enable = true;
     udisks2.enable = true;
     devmon.enable = true;

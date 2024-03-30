@@ -18,6 +18,12 @@
   };
   local = {
     settings.enable = true;
+  desktop = {
+      enable = true;
+      useEnv = true;
+      enableHyprland = true;
+      enableGreeter = false;
+    };
   };
   environment.systemPackages = with pkgs; [
     xdg-user-dirs
@@ -71,7 +77,7 @@
     gvfs.enable = true;
     udisks2.enable = true;
     devmon.enable = true;
-		xserver.displayManager.sessionPackages = [ inputs.self.packages.${pkgs.system}.niri];
+    xserver.displayManager.sessionPackages = [config.programs.hyprland.finalPackage];
   };
   jovian = {
     decky-loader.enable = true;
@@ -80,7 +86,7 @@
     steam = {
       enable = true;
       autoStart = true;
-			desktopSession = "niri";
+      desktopSession = "Hyprland";
       user = "tod";
     };
   };
