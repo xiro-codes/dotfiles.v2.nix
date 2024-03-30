@@ -16,4 +16,5 @@ in
       mkdir -p $out/share/wayland-sessions
       echo "${desktopSession}" > $out/share/wayland-sessions/niri.desktop
     '';
+    passthru.providedSessions = ["niri"];
   })
