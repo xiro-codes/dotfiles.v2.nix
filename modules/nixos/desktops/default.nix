@@ -36,6 +36,10 @@ in {
       type = bool;
       default = false;
     };
+    enableGreeter = mkOption {
+      type = bool;
+      default = true;
+    };
     enablePlasma6 = mkOption {
       type = bool;
       default = false;
@@ -97,7 +101,7 @@ in {
         alsa.enable = true;
       };
       greetd = {
-        enable = true;
+        enable = self.enableGreeter;
         vt = 2;
         settings = {
           default_session = {
