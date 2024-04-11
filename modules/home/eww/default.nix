@@ -62,12 +62,12 @@ in {
           ExecStart = let
             scripts = inputs.self.packages.${pkgs.system}.hyprland-scripts;
           in ''
-            ${scripts}/bin/wm-launch_hud
+            ${scripts}/bin/wm-close-hud
           '';
           ExecStartPost = let
             scripts = inputs.self.packages.${pkgs.system}.hyprland-scripts;
           in ''
-            ${scripts}/bin/wm-launch_hud
+            ${scripts}/bin/wm-open-hud
           '';
         };
         Install.WantedBy = ["default.target"];

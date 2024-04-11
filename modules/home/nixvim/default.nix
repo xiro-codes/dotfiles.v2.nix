@@ -23,6 +23,7 @@ in {
       extraPlugins = [
         {plugin = pkgs.vimPlugins.zoxide-vim;}
         {plugin = pkgs.vimPlugins.fzf-vim;}
+        #{plugin = pkgs.vimPlugins.qmk-nvim;}
       ];
       globals.mapleader = ";";
       options = {
@@ -192,8 +193,8 @@ in {
             "<C-p>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
           };
           sources = [
+            {name = "copilot";}
             {name = "nvim_lsp";}
-            {name = "copliot";}
           ];
           snippet = {
             expand = "function(args) require('luasnip').lsp_expand(args.body) end";
@@ -214,6 +215,8 @@ in {
           servers = {
             nil_ls.enable = true;
             gleam.enable = true;
+            tsserver.enable = true;
+            html.enable = true;
             nixd = {
               enable = true;
               settings = {

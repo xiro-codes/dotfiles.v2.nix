@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<LamprayLang name="English (UK)">
+	<LangNode key="LAMPRAY_LONGNAME">Linux Application Modding Platform</LangNode>
+	<LangNode key="LAMPRAY_LICENSE">
+This is free and unencumbered software released into the public domain.
+
+
+Anyone is free to copy, modify, publish, use, compile, sell, or
+distribute this software, either in source code form or as a compiled
+binary, for any purpose, commercial or non-commercial, and by any
+means.
+
+
+In jurisdictions that recognize copyright laws, the author or authors
+of this software dedicate any and all copyright interest in the
+software to the public domain. We make this dedication for the benefit
+of the public at large and to the detriment of our heirs and
+successors. We intend this dedication to be an overt act of
+relinquishment in perpetuity of all present and future rights to this
+software under copyright law.
+
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+
+For more information, please refer to &lt;https://unlicense.org&gt;</LangNode>
+	<LangNode key="LAMPRAY_AKNOWL">I have read and understood the text above.</LangNode>
+	<LangNode key="LAMPRAY_DRAGANDDROP">Drag archives onto this window to start adding mods to your game!</LangNode>
+	<LangNode key="LAMPRAY_DEPLOY">Deploy</LangNode>
+	<LangNode key="LAMPRAY_RESET">Reset</LangNode>
+	<LangNode key="LAMPRAY_CHECK">Checks</LangNode>
+	<LangNode key="LAMPRAY_STARTTEXT">Start Deployment?</LangNode>
+	<LangNode key="LAMPRAY_START">Start</LangNode>
+	<LangNode key="LAMPRAY_GOBACK">Back</LangNode>
+	<LangNode key="LAMPRAY_GAMEPICK">Game Selection</LangNode>
+	<LangNode key="LAMPRAY_GAMECONFIG">Game Configuration</LangNode>
+	<LangNode key="LAMPRAY_PROFSELECT">Profile Selection</LangNode>
+	<LangNode key="LAMPRAY_PROFLOAD">Load Profile</LangNode>
+	<LangNode key="LAMPRAY_PROFDEL">Delete Profile</LangNode>
+	<LangNode key="LAMPRAY_PROFCRE">Create New Profile</LangNode>
+	<LangNode key="LAMPRAY_PROFCRES">Create</LangNode>
+	<LangNode key="LAMPRAY_PROFEXP">Export Profile</LangNode>
+	<LangNode key="LAMPRAY_PROFIMP">Import Profile</LangNode>
+	<LangNode key="LAMPRAY_PROFFRM">Copy From</LangNode>
+	<LangNode key="LAMPRAY_PROFNON">None</LangNode>
+	<LangNode key="LAMPRAY_PROFNM">New Profile Name</LangNode>
+	<LangNode key="LAMPRAY_CUSTOM">Customise Lampray</LangNode>
+	<LangNode key="LAMPRAY_ABT">About</LangNode>
+	<LangNode key="LAMPRAY_ABT1">Created by</LangNode>
+	<LangNode key="LAMPRAY_QUIT">Quit</LangNode>
+	<LangNode key="LAMPRAY_MODLIST_ENABLE">Enabled</LangNode>
+	<LangNode key="LAMPRAY_MODLIST_DISABLE">Disabled</LangNode>
+	<LangNode key="LAMPRAY_MODLIST_EXPND">Expand</LangNode>
+	<LangNode key="LAMPRAY_MODLIST_COLL">Collapse</LangNode>
+	<LangNode key="LAMPRAY_MODLIST_REMOVE_MOD">Remove Mod</LangNode>
+	<LangNode key="LAMPRAY_MODLIST_REMOVE_SEP">Remove</LangNode>
+	<LangNode key="LAMPRAY_MODLIST_MV_TOP">Move to Top</LangNode>
+	<LangNode key="LAMPRAY_MODLIST_MV_BTTM">Move to Bottom</LangNode>
+	<LangNode key="LAMPRAY_MODLIST_RENAME">Rename Separator</LangNode>
+	<LangNode key="LAMPRAY_MODLIST_CREATE_SEP">Create Separator</LangNode>
+	<LangNode key="LAMPRAY_MODLIST_SEARCH">Type here to search your mods...</LangNode>
+	<LangNode key="LAMPRAY_MODLIST_UP">Up</LangNode>
+	<LangNode key="LAMPRAY_MODLIST_DOWN">Down</LangNode>
+	<LangNode key="LAMPRAY_MODLIST_WARN">Only disabled mods can be removed.</LangNode>
+	<LangNode key="LAMPRAY_MODLIST_CONFRIMDEL">Confirm Deletion</LangNode>
+	<LangNode key="LAMPRAY_MODLIST_WARN_FINAL">?
+
+This action cannot be undone.</LangNode>
+	<LangNode key="LAMPRAY_MODLIST_WARN_SURE">Are you sure you want to delete: </LangNode>
+	<LangNode key="LAMPRAY_MODLIST_DELETE">Delete</LangNode>
+	<LangNode key="LAMPRAY_MODLIST_TITLE_ENABLED">Enabled</LangNode>
+	<LangNode key="LAMPRAY_MODLIST_TITLE_MODNAME">Mod Name</LangNode>
+	<LangNode key="LAMPRAY_MODLIST_TITLE_MODTYPE">Mod Type</LangNode>
+	<LangNode key="LAMPRAY_MODLIST_TITLE_LASTUPDATE">Last Updated</LangNode>
+	<LangNode key="LAMPRAY_MODLIST_TITLE_ORDER">Load Order</LangNode>
+	<LangNode key="LAMPRAY_MODLIST_TITLE_REMOVEMOD">Remove Mod</LangNode>
+	<LangNode key="LAMPRAY_UPDATE_CHECK">Check for Updates</LangNode>
+	<LangNode key="LAMPRAY_UPDATE_RULES">Update Rules</LangNode>
+	<LangNode key="LAMPRAY_UPDATE_RULES1">Check for updates at startup</LangNode>
+	<LangNode key="LAMPRAY_CUSTOM_LANG">Language</LangNode>
+	<LangNode key="LAMPRAY_CUSTOM_COLOUR">Colours</LangNode>
+	<LangNode key="LAMPRAY_CUSTOM_FONT">Font Size</LangNode>
+	<LangNode key="LAMPRAY_CUSTOM_SV">Save</LangNode>
+	<LangNode key="LAMPRAY_SELECT_PATH">Select Path</LangNode>
+	<LangNode key="LAMPRAY_ERROR_7Z">Failed to find 7z.so! Many actions, such as deployment, will not function correctly. See the wiki for more information.</LangNode>
+	<LangNode key="LAMPRAY_WARN_GAME_PATH"> directories are not set. Deployment will not work until you have set them in the Game Configuration menu.</LangNode>
+</LamprayLang>
