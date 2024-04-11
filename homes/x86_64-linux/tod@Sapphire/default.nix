@@ -5,12 +5,7 @@
   lib,
   ...
 }: let
-  inherit (inputs.self.packages.${pkgs.system}) hyprland-scripts;
-  libbluray = pkgs.libbluray.override {
-    withAACS = true;
-    withBDplus = true;
-  };
-  vlc' = pkgs.vlc.override {inherit libbluray;};
+  inherit (inputs.self.packages.${pkgs.system}) hyprland-scripts vlc;
 in {
   imports = [
   ];
@@ -18,28 +13,25 @@ in {
   home.homeDirectory = "/home/tod";
 
   home.stateVersion = "23.05"; # Please read the comment before changing.
-  home.packages = with pkgs; [
-    nerdfonts
-    unzip
-    p7zip
-    sysstat
-    pcmanfm
-    vlc'
-    xarchiver
-    feh
-    grim
-    slurp
-    transmission-gtk
-    bottom
-    duf
-    dust
-    lazygit
-  ];
-
-  fonts.fontconfig.enable = true;
+  home.packages = with pkgs;
+    [
+      sysstat
+      pcmanfm
+      xarchiver
+      feh
+      grim
+      slurp
+      transmission-gtk
+      bottom
+      duf
+      dust
+      lazygit
+    ]
+    ++ [vlc];
 
   local = {
     enable = true;
+    fonts.enable = true;
 
     nixvim.enable = true;
 
@@ -94,31 +86,6 @@ in {
   qt = {
     enable = true;
     platformTheme = "gtk";
-  };
-  systemd.user.services = {
-    eww = {
-      Unit = {
-        Description = "Launch Eww";
-      };
-      Install = {
-        WantedBy = ["default.target"];
-      };
-      Service = {
-        ExecStart = "${hyprland-scripts}/bin/wm-launch";
-      };
-    };
-    monitors-hook = {
-      Unit = {
-        Description = "Relaunh hud on monitor change";
-      };
-      Install = {
-        WantedBy = ["default.target"];
-      };
-      Service = {
-        ExecStart = "${hyprland-scripts}/bin/wm-monitors-hook";
-        Restart = "always";
-      };
-    };
   };
 
   programs = {
