@@ -50,7 +50,20 @@ in {
         libnotify
         cliphist
       ]
-      ++ [inputs.self.packages.${pkgs.system}.hyprland-scripts];
+      ++ [hyprland-scripts];
+
+    systemd.user.services.monitors-hook = {
+      Unit = {
+        Description = "Relaunh hud on monitor change";
+      };
+      Install = {
+        WantedBy = ["hyprland-session.target"];
+      };
+      Service = {
+        ExecStart = "${hyprland-scripts}/bin/wm-monitors-hook";
+        Restart = "always";
+      };
+    };
     wayland.windowManager.hyprland = {
       enable = true;
       systemd.enable = true;
