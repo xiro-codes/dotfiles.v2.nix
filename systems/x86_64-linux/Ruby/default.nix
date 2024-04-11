@@ -18,7 +18,7 @@
   };
   local = {
     settings.enable = true;
-  desktop = {
+    desktop = {
       enable = true;
       useEnv = true;
       enableHyprland = true;

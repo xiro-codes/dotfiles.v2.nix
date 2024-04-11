@@ -100,12 +100,12 @@ in {
       Unit = {
         Description = "Launch Eww";
       };
-			Install = {
-				WantedBy = ["default.target"];
-			};
-			Service = {
-				ExecStart = "${hyprland-scripts}/bin/wm-launch";
-			};
+      Install = {
+        WantedBy = ["default.target"];
+      };
+      Service = {
+        ExecStart = "${hyprland-scripts}/bin/wm-launch";
+      };
     };
     monitors-hook = {
       Unit = {
