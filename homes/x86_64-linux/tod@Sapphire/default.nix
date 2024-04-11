@@ -4,7 +4,14 @@
   inputs,
   lib,
   ...
-}: {
+}: let
+  inherit (inputs.self.packages.${pkgs.system}) hyprland-scripts;
+  libbluray = pkgs.libbluray.override {
+    withAACS = true;
+    withBDplus = true;
+  };
+  vlc' = pkgs.vlc.override {inherit libbluray;};
+in {
   imports = [
   ];
   home.username = "tod";
@@ -12,13 +19,12 @@
 
   home.stateVersion = "23.05"; # Please read the comment before changing.
   home.packages = with pkgs; [
-    librewolf
     nerdfonts
     unzip
     p7zip
     sysstat
     pcmanfm
-    vlc
+    vlc'
     xarchiver
     feh
     grim
@@ -89,6 +95,32 @@
     enable = true;
     platformTheme = "gtk";
   };
+  systemd.user.services = {
+    eww = {
+      Unit = {
+        Description = "Launch Eww";
+      };
+			Install = {
+				WantedBy = ["default.target"];
+			};
+			Service = {
+				ExecStart = "${hyprland-scripts}/bin/wm-launch";
+			};
+    };
+    monitors-hook = {
+      Unit = {
+        Description = "Relaunh hud on monitor change";
+      };
+      Install = {
+        WantedBy = ["default.target"];
+      };
+      Service = {
+        ExecStart = "${hyprland-scripts}/bin/wm-monitors-hook";
+        Restart = "always";
+      };
+    };
+  };
+
   programs = {
     home-manager.enable = true;
     direnv = {

@@ -1,0 +1,45 @@
+[LAMP:LOG:0] 04/04/2024 16:30 | | Battle Control Online, Welcome Back Commander.
+[LAMP:LOG:0] Loading BG3:CurrentProfile
+[LAMP:LOG:0] Saving BG3:CurrentProfile:Default
+[LAMP:LOG:0] Loading BG3:ProfileList
+[LAMP:LOG:0] Saving BG3:ProfileList:Default
+[LAMP:LOG:0] Loading BG3:appDataPath
+[LAMP:WARNING:9] Unable to load BG3:appDataPath
+[LAMP:LOG:0] Loading BG3:installDirPath
+[LAMP:WARNING:9] Unable to load BG3:installDirPath
+[LAMP:ERROR:7] Could not load modlist.
+[LAMP:LOG:0] Loading C77:CurrentProfile
+[LAMP:LOG:0] Saving C77:CurrentProfile:Default
+[LAMP:LOG:0] Loading C77:ProfileList
+[LAMP:LOG:0] Saving C77:ProfileList:Default
+[LAMP:LOG:0] Loading C77:installPath
+[LAMP:WARNING:9] Unable to load C77:installPath
+[LAMP:ERROR:7] Could not load modlist.
+[LAMP:LOG:0] Loading LAMP CONFIG:Check_Updates_Startup
+[LAMP:WARNING:9] Unable to load LAMP CONFIG:Check_Updates_Startup
+[LAMP:LOG:0] Loading LAMP CONFIG:showIntroMenu
+[LAMP:WARNING:9] Unable to load LAMP CONFIG:showIntroMenu
+[LAMP:LOG:0] Loading LAMP CONFIG:bit7zLibaryLocation
+[LAMP:LOG:0] Initializing Lampray
+[LAMP:LOG:0] Saving LAMP CONFIG:bit7zLibaryLocation:./result-lib/lib/p7zip/
+[LAMP:LOG:0] Loading LAMP CONFIG:Font_Scale
+[LAMP:WARNING:9] Unable to load LAMP CONFIG:Font_Scale
+[LAMP:LOG:0] Creating Directories
+[LAMP:LOG:0] Directories Created
+[LAMP:LOG:0] Loading LAMP CONFIG:Colour_Text
+[LAMP:LOG:0] Loading LAMP CONFIG:Colour_WindowBackground
+[LAMP:LOG:0] Loading LAMP CONFIG:Colour_ToolTipAndTypes
+[LAMP:LOG:0] Loading LAMP CONFIG:Colour_InputBG
+[LAMP:LOG:0] Loading LAMP CONFIG:Colour_MenuBar
+[LAMP:LOG:0] Loading LAMP CONFIG:Colour_Button
+[LAMP:LOG:0] Loading LAMP CONFIG:Colour_Hover
+[LAMP:LOG:0] Loading LAMP CONFIG:Colour_Pressed
+[LAMP:LOG:0] Loading LAMP CONFIG:Colour_MenuItems
+[LAMP:LOG:0] Loading LAMP CONFIG:Colour_HeadHover
+[LAMP:LOG:0] Loading LAMP CONFIG:Colour_HeadPressed
+[LAMP:LOG:0] Loading LAMP CONFIG:Colour_Separator
+[LAMP:LOG:0] Loading LAMP CONFIG:Colour_SeparatorHover
+[LAMP:LOG:0] Loading LAMP CONFIG:Colour_SearchHighlight
+[LAMP:LOG:0] Loading LAMP CONFIG:Colour_ButtonAlt
+[LAMP:LOG:0] Loading LAMP CONFIG:Check_Updates_Startup
+[LAMP:WARNING:9] Unable to load LAMP CONFIG:Check_Updates_Startup
