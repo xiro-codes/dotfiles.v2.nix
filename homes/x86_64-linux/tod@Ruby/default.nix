@@ -37,7 +37,7 @@
 
     nixvim.enable = true;
 
-    eww.enable = true;
+    eww.enable = false;
     kitty.enable = true;
 
     joshuto.enable = true;
@@ -47,24 +47,15 @@
 
     hyprland.monitors = [
       {
-        name = "DP-1";
+        name = "eDP-1";
         scale = 1;
-        width = 1920;
-        height = 1080;
-        rate = 60;
-        x = 320;
-        y = 1080;
-        workspaces = [1 2 3];
-      }
-      {
-        name = "HDMI-A-1";
-        scale = 1;
-        width = 2560;
-        height = 1080;
+        width = 800;
+        height = 1280;
         rate = 60;
         x = 0;
         y = 0;
-        workspaces = [4 5 6];
+        transform = 3;
+        workspaces = [1 2 3 4 5 6];
       }
     ];
     waybar.theme = "arin";
