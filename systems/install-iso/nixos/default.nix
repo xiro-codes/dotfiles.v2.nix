@@ -7,14 +7,10 @@
   inputs,
   ...
 }: let
-  inherit (inputs.self.packages.${pkgs.system}) warp-terminal-wayland xivlauncher liquidctl tekkit-classic;
+  inherit (inputs.self.packages.${pkgs.system}) warp-terminal-wayland xivlauncher liquidctl;
   inherit (lib) getExe;
 in {
   imports = [
-    ./hardware-configuration.nix
-    (import ./disk-configuration.nix {device = "/dev/nvme0n1";})
-    (import ./hdd-configuration.nix {})
-    (import ./ssd-configuration.nix {})
   ];
 
   environment.systemPackages =
@@ -29,9 +25,8 @@ in {
       via
       nvtop-amd
       firefox
-      prismlauncher
     ])
-    ++ [warp-terminal-wayland liquidctl];
+    ++ [warp-terminal-wayland];
 
   environment.variables = {
     FLAKE = "/etc/nixos";
@@ -54,14 +49,7 @@ in {
       iwd.enable = true;
     };
   };
-
-  specialisation = {
-  };
-
-  local = let
-    videoDir = "/mnt/hdd/videos";
-    backupsDir = "/mnt/hdd/backups";
-  in {
+  local = {
     settings.enable = true;
     bluetooth.enable = true;
     #networking.enable = true;
@@ -69,84 +57,30 @@ in {
       enable = true;
       useEnv = true;
       enableHyprland = true;
-      enableNiri = true;
+      enableNiri = false;
     };
 
-    services.minecraft-server = {
-      enable = true;
-      eula = true;
-      openFirewall = true;
-      package = tekkit-classic;
-      dataDir = "/mnt/hdd/minecraft";
-    };
     boot = {
       timeout = 5;
       efi.bootloader = "systemd-boot";
     };
-    youtube-dl = {
-      freq = "30m";
-      targets = [
-        {
-          name = "SomeOrdinaryGamers";
-          channel = "https://www.youtube.com/@SomeOrdinaryGamers";
-          dest = "${videoDir}/youtube/SomeOrdinaryGamers";
-        }
-        {
-          name = "BellularNews";
-          channel = "https://www.youtube.com/@BellularNews";
-          dest = "${videoDir}/youtube/BellularNews";
-        }
-        {
-          name = "Avarisi";
-          channel = "https://www.youtube.com/@avarisi";
-          dest = "${videoDir}/youtube/Avarisi";
-        }
-        {
-          name = "UpperEchelon";
-          channel = "https://www.youtube.com/@UpperEchelon";
-          dest = "${videoDir}/youtube/UpperEchelon";
-        }
-        {
-          name = "Pint";
-          channel = "https://www.youtube.com/@PintFrumpyrat";
-          dest = "${videoDir}/youtube/Pint";
-        }
-        {
-          name = "CiderSpider";
-          channel = "https://www.youtube.com/@CiderSpider";
-          dest = "${videoDir}/youtube/CiderSpider";
-        }
-      ];
-    };
-    backups = {
-      targets = [
-        {
-          name = "dotfiles";
-          source = "/mnt/hdd/dotfiles.nix";
-          dest = "/mnt/hdd/backups/dotfiles.nix";
-        }
-        {
-          name = "documents";
-          source = "/mnt/hdd/documents";
-          dest = "/mnt/hdd/backups/documents";
-        }
-      ];
-    };
   };
 
   virtualisation.docker.enable = true;
-  users.users.tod = {
-    name = "tod";
+
+  users.users.nixos = {
+    name = "nixos";
     isNormalUser = true;
     extraGroups = ["wheel" "audio" "docker" "adbusers" "networkmanager" "input" "uinput" "dialout"];
     shell = pkgs.fish;
-    password = "sapphire";
+    password = "nixos";
   };
+  xdg.portal.enable = true;
+  xdg.portal.extraPortals = with pkgs; [xdg-desktop-portal-gtk xdg-desktop-portal-kde];
 
   programs = {
     coolercontrol.enable = true;
     fish.enable = true;
-    virt-manager.enable = true;
     steam = {
       enable = true;
       localNetworkGameTransfers.openFirewall = true;
@@ -154,12 +88,12 @@ in {
     git.enable = true;
     kdeconnect.enable = true;
     adb.enable = true;
+  };
 
-    #nh = {
-    #  enable = true;
-    #  clean.enable = true;
-    #  clean.extraArgs = "--keep-since 5d --keep 10";
-    #};
+  nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 5d --keep 10";
   };
   services = {
     tailscale.enable = true;
@@ -169,12 +103,19 @@ in {
       port = 8090;
       openFirewall = true;
     };
+    minecraft-server = {
+      enable = true;
+      eula = true;
+      openFirewall = true;
+      dataDir = "/mnt/hdd/minecraft";
+    };
     jellyfin = {
       enable = true;
       openFirewall = true;
     };
     flatpak.enable = true;
     openssh.enable = true;
+    openssh.settings.PermitRootLogin = "yes";
     gvfs.enable = true;
     udisks2.enable = true;
     devmon.enable = false;

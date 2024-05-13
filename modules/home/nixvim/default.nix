@@ -178,9 +178,9 @@ in {
         };
 
         treesitter.enable = true;
-        copilot-cmp.enable = true;
         nvim-colorizer.enable = true;
         cmp-nvim-lsp.enable = true;
+        cmp-buffer.enable = true;
         cmp.enable = true;
         cmp.settings = {
           mapping = {
@@ -189,11 +189,11 @@ in {
             "<C-e>" = "cmp.mapping.close()";
             "<C-f>" = "cmp.mapping.scroll_docs(4)";
             "<CR>" = "cmp.mapping.confirm({ select = true })";
-            "<C-n>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
-            "<C-p>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
+            "<C-p>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
+            "<C-n>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
           };
           sources = [
-            {name = "copilot";}
+            {name = "buffer";}
             {name = "nvim_lsp";}
           ];
           snippet = {

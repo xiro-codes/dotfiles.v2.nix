@@ -41,7 +41,7 @@ in {
     joshuto.enable = true;
 
     guiFileManager = "${lib.getExe pkgs.pcmanfm}";
-    guiTerminal = "${lib.getExe inputs.self.packages.${pkgs.system}.warp-terminal-wayland}";
+    guiTerminal = "${lib.getExe' inputs.self.packages.${pkgs.system}.warp-terminal-wayland "warp-terminal"}";
 
     hyprland.monitors = [
       {

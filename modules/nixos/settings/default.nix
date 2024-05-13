@@ -15,7 +15,6 @@ in {
   };
   config = mkIf cfg.settings.enable {
     nix = {
-      package = pkgs.nixUnstable;
       settings = {
         substituters = [
           "https://nix-community.cachix.org"

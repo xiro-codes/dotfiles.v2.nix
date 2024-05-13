@@ -23,10 +23,6 @@
       url = "github:Jovian-Experiments/Jovian-NixOS";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nh = {
-      url = "github:viperML/nh";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     hyprland.url = "github:hyprwm/Hyprland";
     nixvim.url = "github:nix-community/nixvim";
     neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
@@ -47,7 +43,6 @@
 
       systems.modules.nixos = with inputs; [
         disko.nixosModules.default
-        nh.nixosModules.default
         nixos-generators.nixosModules.all-formats
       ];
 

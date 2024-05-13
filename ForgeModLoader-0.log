@@ -1,0 +1,5 @@
+2024-05-06 07:47:31 [INFO] Forge Mod Loader version 2.2.91.173 for Minecraft 1.2.5 loading
+2024-05-06 07:47:31 [FINE] No mod directory found, creating one: /etc/nixos/mods
+2024-05-06 07:47:31 [FINE] No config directory found, creating one: /etc/nixos/config
+2024-05-06 07:47:31 [FINE] Attempting to load mods contained in the minecraft jar file and associated classes
+2024-05-06 07:47:31 [SEVERE] Unable to process our input to locate the minecraft code
