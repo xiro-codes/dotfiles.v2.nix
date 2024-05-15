@@ -7,7 +7,8 @@
   inputs,
   ...
 }: let
-  inherit (inputs.self.packages.${pkgs.system}) warp-terminal-wayland xivlauncher;
+  inherit (inputs.self.packages.${pkgs.system}) warp-terminal-wayland xivlauncher liquidctl;
+  inherit (lib) getExe;
 in {
   imports = [
     ./hardware-configuration.nix
@@ -26,11 +27,10 @@ in {
       helvum
       comma
       via
-      google-chrome
       nvtop-amd
-      lunatask
+      firefox
     ])
-    ++ [warp-terminal-wayland xivlauncher];
+    ++ [warp-terminal-wayland xivlauncher liquidctl];
 
   environment.variables = {
     FLAKE = "/etc/nixos";
@@ -38,6 +38,8 @@ in {
   hardware = {
     bluetooth = {
       enable = true;
+      package = pkgs.bluez-experimental;
+      input.General = {ClassicBondedOnly = false;};
       settings = {
         General = {Experimental = true;};
       };
@@ -79,6 +81,16 @@ in {
           source = "/mnt/hdd/dotfiles.nix";
           dest = "/mnt/hdd/backups/dotfiles.nix";
         }
+        {
+          name = "documents";
+          source = "/mnt/hdd/documents";
+          dest = "/mnt/hdd/backups/documents";
+        }
+        {
+          name = "workspaces";
+          source = "/mnt/ssd/workspaces";
+          dest = "/mnt/ssd/backups/workspaces";
+        }
       ];
     };
   };
@@ -113,6 +125,7 @@ in {
     clean.extraArgs = "--keep-since 5d --keep 10";
   };
   services = {
+    tailscale.enable = true;
     blueman.enable = true;
     komga = {
       enable = false;
@@ -130,17 +143,19 @@ in {
     devmon.enable = true;
   };
 
-  systemd.timers."backup" = {
+  systemd.timers."aio-init" = {
     wantedBy = ["timers.target"];
     timerConfig = {
       OnBootSec = "5s";
-      Unit = "backup.service";
+      Unit = "aio-init.service";
     };
   };
-  systemd.services."backup" = {
+
+  systemd.services."aio-init" = {
     script = ''
-      ${pkgs.btrfs-progs}/bin/btrfs subvolume snapshot /mnt/ssd/workspaces /mnt/ssd/backups/workspaces.`date +%Y-%m-%d@%H-%M-%S`
-      ${pkgs.btrfs-progs}/bin/btrfs subvolume snapshot /mnt/hdd/documents /mnt/hdd/backups/documents.`date +%Y-%m-%d@%H-%M-%S`
+      ${getExe liquidctl} initialize all
+      ${getExe liquidctl} set fan speed 30 30 40 50 60 70
+      ${getExe liquidctl} set pump speed 30 20 40 50
     '';
     serviceConfig = {
       User = "root";

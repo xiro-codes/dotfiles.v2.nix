@@ -13,6 +13,7 @@
   local = config.local.joshuto;
   defaultSettings = import ./default_settings.nix {};
   defaultKeymap = import ./default_keymap.nix {};
+  defaultIcons = import ./default_icons.nix {};
 in {
   imports = [];
   options.local.joshuto = {
@@ -38,7 +39,7 @@ in {
     };
     icons = mkOption {
       type = types.attrsOf types.anything;
-      default = {};
+      default = defaultIcons;
     };
   };
   config = mkIf (local.enable) {

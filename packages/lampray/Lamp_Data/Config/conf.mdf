@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<root>
+	<game name="LAMP CONFIG">
+		<Colour_Text>ffffff-ff</Colour_Text>
+		<Colour_WindowBackground>0a0d12-ff</Colour_WindowBackground>
+		<Colour_ToolTipAndTypes>141414-ff</Colour_ToolTipAndTypes>
+		<Colour_InputBG>260101-ff</Colour_InputBG>
+		<Colour_MenuBar>071216-ff</Colour_MenuBar>
+		<Colour_Button>590202-ff</Colour_Button>
+		<Colour_Hover>a61103-ff</Colour_Hover>
+		<Colour_Pressed>260101-ff</Colour_Pressed>
+		<Colour_MenuItems>4296f9-4f</Colour_MenuItems>
+		<Colour_HeadHover>4296f9-cc</Colour_HeadHover>
+		<Colour_HeadPressed>590202-ff</Colour_HeadPressed>
+		<Colour_Separator>4296f9-ff</Colour_Separator>
+		<Colour_SeparatorHover>a61103-ff</Colour_SeparatorHover>
+		<Colour_SearchHighlight>1966bf-c6</Colour_SearchHighlight>
+		<Colour_ButtonAlt>1a994d-ff</Colour_ButtonAlt>
+		<bit7zLibaryLocation>./result-lib/lib/p7zip/</bit7zLibaryLocation>
+	</game>
+	<game name="BG3">
+		<CurrentProfile>Default</CurrentProfile>
+		<ProfileList>Default</ProfileList>
+	</game>
+	<game name="C77">
+		<CurrentProfile>Default</CurrentProfile>
+		<ProfileList>Default</ProfileList>
+	</game>
+</root>
