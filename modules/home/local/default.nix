@@ -45,10 +45,13 @@ in {
       default = "";
     };
 
-    launcher = mkOption {type = types.str;};
+    launcher = mkOption {
+      type = types.str;
+      default = "";
+    };
 
     theme = mkOption {
-      type = with types; enum ["gruvbox" "tokyo-night" "arin"];
+      type = with types; enum ["gruvbox" "tokyo-night" "arin" "none"];
     };
   };
 

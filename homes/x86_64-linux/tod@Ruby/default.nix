@@ -40,9 +40,10 @@
     kitty.enable = true;
 
     joshuto.enable = true;
-
+    hyprland.enable = false;
     guiFileManager = "${lib.getExe pkgs.pcmanfm}";
     guiTerminal = "${lib.getExe inputs.self.packages.${pkgs.system}.warp-terminal-wayland}";
+    theme = "arin";
   };
   programs = {
     home-manager.enable = true;

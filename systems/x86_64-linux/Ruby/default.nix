@@ -18,12 +18,6 @@
   };
   local = {
     settings.enable = true;
-  desktop = {
-      enable = true;
-      useEnv = true;
-      enableHyprland = true;
-      enableGreeter = false;
-    };
   };
   environment.systemPackages = with pkgs; [
     xdg-user-dirs
