@@ -18,17 +18,10 @@
   };
   local = {
     settings.enable = true;
-    desktop = {
-      enable = true;
-      useEnv = true;
-      enableHyprland = true;
-      enableGreeter = false;
-    };
   };
   environment.systemPackages = with pkgs; [
     xdg-user-dirs
     pulseaudioFull
-    inputs.self.packages.${system}.niri
   ];
   hardware = {
     bluetooth.enable = true;
@@ -77,7 +70,7 @@
     gvfs.enable = true;
     udisks2.enable = true;
     devmon.enable = true;
-    xserver.displayManager.sessionPackages = [config.programs.hyprland.finalPackage];
+    xserver.desktopManager.plasma5.enable = true;
   };
   jovian = {
     decky-loader.enable = true;
@@ -86,7 +79,7 @@
     steam = {
       enable = true;
       autoStart = true;
-      desktopSession = "niri";
+      desktopSession = "plasma";
       user = "tod";
     };
   };

@@ -5,23 +5,15 @@
   ...
 }: ''
 
-    output "DP-1" {
-        scale 1.0
-        transform "normal"
-        mode "1920x1080@60.00"
-        position x=0 y=1080
-    }
-    output "HDMI-A-1" {
-    	scale 1.0
-    	transform "normal"
-    	mode "2580x1080@60.00"
-    	position x=0 y=0
-    }
-
-    layout {
-        focus-ring {
-            width 2
-
+  output "eDP-1" {
+      scale 1.0
+      transform "90"
+      mode "800x1280@60.00"
+      position x=0 y=0
+  }
+  layout {
+      focus-ring {
+          width 2
             active-color "#7fc8ff"
             inactive-color "#505050"
 
