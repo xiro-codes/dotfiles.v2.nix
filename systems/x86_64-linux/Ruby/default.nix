@@ -22,7 +22,6 @@
   environment.systemPackages = with pkgs; [
     xdg-user-dirs
     pulseaudioFull
-    inputs.self.packages.${system}.niri
   ];
   hardware = {
     bluetooth.enable = true;
@@ -71,6 +70,7 @@
     gvfs.enable = true;
     udisks2.enable = true;
     devmon.enable = true;
+    xserver.desktopManager.plasma5.enable = true;
   };
   jovian = {
     decky-loader.enable = true;
@@ -79,6 +79,7 @@
     steam = {
       enable = true;
       autoStart = true;
+      desktopSession = "plasma";
       user = "tod";
     };
   };
