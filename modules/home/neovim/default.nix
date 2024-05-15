@@ -21,7 +21,6 @@ in {
       pkgs.neovide
       pkgs.rust-analyzer
       pkgs.nil
-      pkgs.rnix-lsp
       pkgs.alejandra
       pkgs.nixpkgs-fmt
       pkgs.fzf

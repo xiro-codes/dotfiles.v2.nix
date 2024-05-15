@@ -5,12 +5,7 @@
   lib,
   ...
 }: let
-  inherit (inputs.self.packages.${pkgs.system}) hyprland-scripts;
-  libbluray = pkgs.libbluray.override {
-    withAACS = true;
-    withBDplus = true;
-  };
-  vlc' = pkgs.vlc.override {inherit libbluray;};
+  inherit (inputs.self.packages.${pkgs.system}) hyprland-scripts vlc;
 in {
   imports = [
   ];
@@ -18,30 +13,28 @@ in {
   home.homeDirectory = "/home/tod";
 
   home.stateVersion = "23.05"; # Please read the comment before changing.
-  home.packages = with pkgs; [
-    nerdfonts
-    unzip
-    p7zip
-    sysstat
-    pcmanfm
-    vlc'
-    xarchiver
-    feh
-    grim
-    slurp
-    transmission-gtk
-    bottom
-    duf
-    dust
-    lazygit
-  ];
-
-  fonts.fontconfig.enable = true;
+  home.packages = with pkgs;
+    [
+      sysstat
+      pcmanfm
+      xarchiver
+      feh
+      grim
+      slurp
+      transmission-gtk
+      bottom
+      duf
+      dust
+      lazygit
+    ]
+    ++ [vlc];
 
   local = {
     enable = true;
+    fonts.enable = true;
 
     nixvim.enable = true;
+    neovim.enable = false;
 
     eww.enable = true;
     kitty.enable = true;
@@ -49,7 +42,7 @@ in {
     joshuto.enable = true;
 
     guiFileManager = "${lib.getExe pkgs.pcmanfm}";
-    guiTerminal = "${lib.getExe inputs.self.packages.${pkgs.system}.warp-terminal-wayland}";
+    guiTerminal = "${lib.getExe' inputs.self.packages.${pkgs.system}.warp-terminal-wayland "warp-terminal"}";
 
     hyprland.monitors = [
       {
@@ -93,32 +86,7 @@ in {
   };
   qt = {
     enable = true;
-    platformTheme = "gtk";
-  };
-  systemd.user.services = {
-    eww = {
-      Unit = {
-        Description = "Launch Eww";
-      };
-			Install = {
-				WantedBy = ["default.target"];
-			};
-			Service = {
-				ExecStart = "${hyprland-scripts}/bin/wm-launch";
-			};
-    };
-    monitors-hook = {
-      Unit = {
-        Description = "Relaunh hud on monitor change";
-      };
-      Install = {
-        WantedBy = ["default.target"];
-      };
-      Service = {
-        ExecStart = "${hyprland-scripts}/bin/wm-monitors-hook";
-        Restart = "always";
-      };
-    };
+    platformTheme.name = "gtk";
   };
 
   programs = {

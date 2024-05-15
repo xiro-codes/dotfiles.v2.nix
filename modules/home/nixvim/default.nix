@@ -26,7 +26,7 @@ in {
         #{plugin = pkgs.vimPlugins.qmk-nvim;}
       ];
       globals.mapleader = ";";
-      options = {
+      opts = {
         number = true;
         relativenumber = true;
         splitbelow = true;
@@ -178,9 +178,9 @@ in {
         };
 
         treesitter.enable = true;
-        copilot-cmp.enable = true;
         nvim-colorizer.enable = true;
         cmp-nvim-lsp.enable = true;
+        cmp-buffer.enable = true;
         cmp.enable = true;
         cmp.settings = {
           mapping = {
@@ -189,11 +189,11 @@ in {
             "<C-e>" = "cmp.mapping.close()";
             "<C-f>" = "cmp.mapping.scroll_docs(4)";
             "<CR>" = "cmp.mapping.confirm({ select = true })";
-            "<C-n>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
-            "<C-p>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
+            "<C-p>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
+            "<C-n>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
           };
           sources = [
-            {name = "copilot";}
+            {name = "buffer";}
             {name = "nvim_lsp";}
           ];
           snippet = {
@@ -208,29 +208,15 @@ in {
             gd = "definition";
             gi = "implementation";
             gt = "type_definition";
-            rn = "rename";
+            "<leader>rn" = "rename";
+            "<leader>ca" = "code_action";
             "<leader>df" = "format";
-            #"<leader>ca" = "codeactions";
           };
           servers = {
             nil_ls.enable = true;
             gleam.enable = true;
             tsserver.enable = true;
             html.enable = true;
-            nixd = {
-              enable = true;
-              settings = {
-                eval = {
-                  depth = 10;
-                  workers = 8;
-                };
-                options = {
-                  enable = true;
-                  target = {installable = ".#nixosConfigurations.Sapphire.options";};
-                };
-                formatting.command = "${getExe pkgs.alejandra}";
-              };
-            };
           };
         };
       };

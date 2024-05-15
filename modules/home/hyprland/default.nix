@@ -51,7 +51,20 @@ in {
         libnotify
         cliphist
       ]
-      ++ [inputs.self.packages.${pkgs.system}.hyprland-scripts];
+      ++ [hyprland-scripts];
+
+    systemd.user.services.monitors-hook = {
+      Unit = {
+        Description = "Relaunh hud on monitor change";
+      };
+      Install = {
+        WantedBy = ["hyprland-session.target"];
+      };
+      Service = {
+        ExecStart = "${hyprland-scripts}/bin/wm-monitors-hook";
+        Restart = "always";
+      };
+    };
     wayland.windowManager.hyprland = {
       enable = true;
       systemd.enable = true;
@@ -91,14 +104,7 @@ in {
           "float, ^(fkitty)$"
           "float, ^(swayimg)$"
           "float, ^(feh)$"
-          "float, title:^(btop)"
           "float, title:^(game)"
-          "float, title:^(Dioxus app)"
-          "nofocus, com-group_finity-mascot-Main"
-          "noblur, com-group_finity-mascot-Main"
-          "noshadow, com-group_finity-mascot-Main"
-          "noborder, com-group_finity-mascot-Main"
-          "float, com-group_finity-mascot-Main"
         ];
         exec-once = [
           "wl-paste --type text --watch cliphist store"
@@ -122,8 +128,8 @@ in {
         workspace = reduce (cs: s: cs ++ s) (map (m: map (w: "${m.name}, ${toString w}") m.workspaces) (cfg.hyprland.monitors));
 
         bind = [
-          "$mod, Return, exec, ${variables.GUI_TERMINAL}"
-          "$mod_SHIFT, Return, exec, ${variables.TERMINAL}"
+          "$mod_SHIFT, Return, exec, ${variables.GUI_TERMINAL}"
+          "$mod, Return, exec, ${variables.TERMINAL}"
 
           "$mod, E, exec, ${variables.GUI_FILEMANAGER}"
           "$mod_SHIFT, E, exec, ${variables.FILEMANAGER}"
@@ -154,7 +160,7 @@ in {
           #"$mod_SHIFT, J, movewindow, d"
           #"$mod_SHIFT, K, movewindow, u"
           #"$mod_SHIFT, L, movewindow, r"
-
+          "$mod, Tab, workspace, next_on_output"
           "$mod, U, workspace, 1"
           "$mod, I, workspace, 2"
           "$mod, O, workspace, 3"

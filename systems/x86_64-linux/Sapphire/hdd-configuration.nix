@@ -26,6 +26,8 @@
                   mountOptions = ["compress=zstd"];
                   mountpoint = "/home/tod/Downloads";
                 };
+                "/minecraft" = {
+                };
                 "/dotfiles.nix" = {
                   mountpoint = "/etc/nixos";
                 };

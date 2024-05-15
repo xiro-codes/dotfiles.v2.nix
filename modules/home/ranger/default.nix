@@ -15,7 +15,7 @@ in {
     };
   };
   config = mkIf (cfg.ranger.enable) {
-    home.packages = [pkgs.ranger];
+    home.packages = [pkgs.ranger pkgs.p7zip pkgs.unzip];
     xdg.configFile = {
       "ranger/rifle.conf".source = ./rifle.conf;
       "ranger/rc.conf".source = ./rc.conf;

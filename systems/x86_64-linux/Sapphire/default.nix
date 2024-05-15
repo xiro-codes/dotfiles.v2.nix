@@ -7,7 +7,7 @@
   inputs,
   ...
 }: let
-  inherit (inputs.self.packages.${pkgs.system}) warp-terminal-wayland xivlauncher liquidctl;
+  inherit (inputs.self.packages.${pkgs.system}) liquidctl tekkit-classic;
   inherit (lib) getExe;
 in {
   imports = [
@@ -27,23 +27,16 @@ in {
       helvum
       comma
       via
-      nvtop-amd
+      nvtopPackages.amd
       firefox
+      prismlauncher
     ])
-    ++ [warp-terminal-wayland xivlauncher liquidctl];
+    ++ [liquidctl];
 
   environment.variables = {
     FLAKE = "/etc/nixos";
   };
   hardware = {
-    bluetooth = {
-      enable = true;
-      package = pkgs.bluez-experimental;
-      input.General = {ClassicBondedOnly = false;};
-      settings = {
-        General = {Experimental = true;};
-      };
-    };
     opengl.enable = true;
     keyboard.qmk.enable = true;
     pulseaudio.enable = lib.mkForce false;
@@ -61,18 +54,69 @@ in {
       iwd.enable = true;
     };
   };
-  local = {
+
+  specialisation = {
+  };
+
+  local = let
+    videoDir = "/mnt/hdd/videos";
+    backupsDir = "/mnt/hdd/backups";
+  in {
     settings.enable = true;
+    bluetooth.enable = true;
+    #networking.enable = true;
     desktops = {
       enable = true;
       useEnv = true;
       enableHyprland = true;
-      enableNiri = true;
+      enableNiri = false;
     };
 
+    services.minecraft-server = {
+      enable = true;
+      eula = true;
+      openFirewall = true;
+      package = tekkit-classic;
+      dataDir = "/mnt/hdd/minecraft";
+    };
     boot = {
       timeout = 5;
       efi.bootloader = "systemd-boot";
+    };
+    youtube-dl = {
+      freq = "30m";
+      targets = [
+        {
+          name = "SomeOrdinaryGamers";
+          channel = "https://www.youtube.com/@SomeOrdinaryGamers";
+          dest = "${videoDir}/youtube/SomeOrdinaryGamers";
+        }
+        {
+          name = "BellularNews";
+          channel = "https://www.youtube.com/@BellularNews";
+          dest = "${videoDir}/youtube/BellularNews";
+        }
+        {
+          name = "Avarisi";
+          channel = "https://www.youtube.com/@avarisi";
+          dest = "${videoDir}/youtube/Avarisi";
+        }
+        {
+          name = "UpperEchelon";
+          channel = "https://www.youtube.com/@UpperEchelon";
+          dest = "${videoDir}/youtube/UpperEchelon";
+        }
+        {
+          name = "Pint";
+          channel = "https://www.youtube.com/@PintFrumpyrat";
+          dest = "${videoDir}/youtube/Pint";
+        }
+        {
+          name = "CiderSpider";
+          channel = "https://www.youtube.com/@CiderSpider";
+          dest = "${videoDir}/youtube/CiderSpider";
+        }
+      ];
     };
     backups = {
       targets = [
@@ -86,17 +130,11 @@ in {
           source = "/mnt/hdd/documents";
           dest = "/mnt/hdd/backups/documents";
         }
-        {
-          name = "workspaces";
-          source = "/mnt/ssd/workspaces";
-          dest = "/mnt/ssd/backups/workspaces";
-        }
       ];
     };
   };
 
   virtualisation.docker.enable = true;
-
   users.users.tod = {
     name = "tod";
     isNormalUser = true;
@@ -104,25 +142,24 @@ in {
     shell = pkgs.fish;
     password = "sapphire";
   };
-  xdg.portal.enable = true;
-  xdg.portal.extraPortals = with pkgs; [xdg-desktop-portal-gtk xdg-desktop-portal-kde];
 
   programs = {
-    coolercontrol.enable = true;
+    #coolercontrol.enable = true;
     fish.enable = true;
+    virt-manager.enable = true;
     steam = {
       enable = true;
-      localNetworkGameTransfers.openFirewall = true;
+      #localNetworkGameTransfers.openFirewall = true;
     };
     git.enable = true;
     kdeconnect.enable = true;
     adb.enable = true;
-  };
 
-  nh = {
-    enable = true;
-    clean.enable = true;
-    clean.extraArgs = "--keep-since 5d --keep 10";
+    #nh = {
+    #  enable = true;
+    #  clean.enable = true;
+    #  clean.extraArgs = "--keep-since 5d --keep 10";
+    #};
   };
   services = {
     tailscale.enable = true;
@@ -136,11 +173,11 @@ in {
       enable = true;
       openFirewall = true;
     };
+    flatpak.enable = true;
     openssh.enable = true;
-    openssh.settings.PermitRootLogin = "yes";
     gvfs.enable = true;
     udisks2.enable = true;
-    devmon.enable = true;
+    devmon.enable = false;
   };
 
   systemd.timers."aio-init" = {

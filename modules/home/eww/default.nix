@@ -33,42 +33,12 @@ in {
         Install.WantedBy = ["timers.target"];
       };
     };
-    systemd.user.timers = {
-      refresh = {
-        Unit.Description = "Refresh eww widget";
-        Timer = {
-          Unit = "refresh";
-          OnBootSec = "1m";
-          OnUnitActiveSec = "1m";
-        };
-        Install.WantedBy = ["timers.target"];
-      };
-    };
     systemd.user.services = {
       weather_info = {
         Unit = {Description = "Get Weather for eww widget";};
         Service = {
           Type = "oneshot";
-          ExecStart = "${scripts}/bin/weather_info --getdata";
-        };
-        Install.WantedBy = ["default.target"];
-      };
-    };
-    systemd.user.services = {
-      refresh = {
-        Unit = {Description = "refresh hud";};
-        Service = {
-          Type = "oneshot";
-          ExecStart = let
-            scripts = inputs.self.packages.${pkgs.system}.hyprland-scripts;
-          in ''
-            ${scripts}/bin/wm-close-hud
-          '';
-          ExecStartPost = let
-            scripts = inputs.self.packages.${pkgs.system}.hyprland-scripts;
-          in ''
-            ${scripts}/bin/wm-open-hud
-          '';
+          ExecStart = "${scripts}/bin/eww-weather_info --getdata";
         };
         Install.WantedBy = ["default.target"];
       };

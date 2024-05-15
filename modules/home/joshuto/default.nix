@@ -8,7 +8,7 @@
   inherit (pkgs.formats) toml;
   toml' = toml {};
 
-  inherit (pkgs) joshuto trash-cli;
+  inherit (pkgs) joshuto trash-cli unzip p7zip;
   global = config.local;
   local = config.local.joshuto;
   defaultSettings = import ./default_settings.nix {};
@@ -45,7 +45,13 @@ in {
   config = mkIf (local.enable) {
     local.fileManager = "${getExe joshuto}";
 
-    home.packages = [joshuto trash-cli (pkgs.writeShellScriptBin "hm-joshuto-preview-file" (builtins.readFile ./preview_file.sh))];
+    home.packages = [
+      joshuto
+      trash-cli
+      unzip
+      p7zip
+      (pkgs.writeShellScriptBin "hm-joshuto-preview-file" (builtins.readFile ./preview_file.sh))
+    ];
 
     xdg.configFile."joshuto/joshuto.toml".source = toml'.generate "joshuto.toml" local.settings;
     xdg.configFile."joshuto/keymap.toml".source = toml'.generate "keymap.toml" local.keymap;
