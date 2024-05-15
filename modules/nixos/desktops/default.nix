@@ -100,8 +100,8 @@ in {
         pulse.enable = true;
         alsa.enable = true;
       };
-      greetd = {
-        enable = self.enableGreeter;
+      greetd = mkIf (self.enableGreeter){
+        enable = true;
         vt = 2;
         settings = {
           default_session = {

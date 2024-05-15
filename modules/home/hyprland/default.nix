@@ -36,6 +36,7 @@ in {
             height = mkOption {type = int;};
             rate = mkOption {type = int;};
             scale = mkOption {type = int;};
+            transform = mkOption {type = int; default = 0;};
             x = mkOption {type = int;};
             y = mkOption {type = int;};
             workspaces = mkOption {type = listOf int;};
@@ -110,9 +111,10 @@ in {
           (m: let
             resolution = "${toString m.width}x${toString m.height}@${toString m.rate}";
             position = "${toString m.x}x${toString m.y}";
+						transform = "transform,${toString m.transform}";
           in "${m.name},${
             if m.enabled
-            then "${resolution},${position},${toString m.scale}"
+            then "${resolution},${position},${toString m.scale},${transform}"
             else "disable"
           }")
           (cfg.hyprland.monitors);

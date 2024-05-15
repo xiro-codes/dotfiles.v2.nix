@@ -37,57 +37,13 @@
 
     nixvim.enable = true;
 
-    eww.enable = true;
     kitty.enable = true;
 
     joshuto.enable = true;
-
+    hyprland.enable = false;
     guiFileManager = "${lib.getExe pkgs.pcmanfm}";
     guiTerminal = "${lib.getExe inputs.self.packages.${pkgs.system}.warp-terminal-wayland}";
-
-    hyprland.monitors = [
-      {
-        name = "DP-1";
-        scale = 1;
-        width = 1920;
-        height = 1080;
-        rate = 60;
-        x = 320;
-        y = 1080;
-        workspaces = [1 2 3];
-      }
-      {
-        name = "HDMI-A-1";
-        scale = 1;
-        width = 2560;
-        height = 1080;
-        rate = 60;
-        x = 0;
-        y = 0;
-        workspaces = [4 5 6];
-      }
-    ];
-    waybar.theme = "arin";
     theme = "arin";
-  };
-  home.file = {
-    ".wallpaper".source = ./arin.png;
-  };
-  gtk = {
-    enable = true;
-    cursorTheme = {
-      package = pkgs.vanilla-dmz;
-      name = "Vanilla-DMZ";
-      size = 16;
-    };
-    iconTheme = {
-      package = pkgs.gruvbox-dark-icons-gtk;
-      name = "oomox-gruvbox-dark";
-    };
-  };
-  qt = {
-    enable = true;
-    platformTheme = "gtk";
   };
   programs = {
     home-manager.enable = true;
@@ -104,13 +60,6 @@
         safe.directory = "*";
         core.sshCommand = "ssh -i /home/tod/.ssh/github";
       };
-    };
-    obs-studio = {
-      enable = true;
-      plugins = [
-        pkgs.obs-studio-plugins.wlrobs
-        pkgs.obs-studio-plugins.obs-pipewire-audio-capture
-      ];
     };
   };
 }
