@@ -34,6 +34,7 @@ in {
     fonts.enable = true;
 
     nixvim.enable = true;
+    neovim.enable = false;
 
     eww.enable = true;
     kitty.enable = true;
@@ -85,7 +86,7 @@ in {
   };
   qt = {
     enable = true;
-    platformTheme = "gtk";
+    platformTheme.name = "gtk";
   };
 
   programs = {

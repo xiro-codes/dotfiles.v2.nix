@@ -7,7 +7,7 @@
   inputs,
   ...
 }: let
-  inherit (inputs.self.packages.${pkgs.system}) warp-terminal-wayland xivlauncher liquidctl tekkit-classic;
+  inherit (inputs.self.packages.${pkgs.system}) liquidctl tekkit-classic;
   inherit (lib) getExe;
 in {
   imports = [
@@ -27,11 +27,11 @@ in {
       helvum
       comma
       via
-      nvtop-amd
+      nvtopPackages.amd
       firefox
       prismlauncher
     ])
-    ++ [warp-terminal-wayland liquidctl];
+    ++ [liquidctl];
 
   environment.variables = {
     FLAKE = "/etc/nixos";
@@ -69,7 +69,7 @@ in {
       enable = true;
       useEnv = true;
       enableHyprland = true;
-      enableNiri = true;
+      enableNiri = false;
     };
 
     services.minecraft-server = {
@@ -144,12 +144,12 @@ in {
   };
 
   programs = {
-    coolercontrol.enable = true;
+    #coolercontrol.enable = true;
     fish.enable = true;
     virt-manager.enable = true;
     steam = {
       enable = true;
-      localNetworkGameTransfers.openFirewall = true;
+      #localNetworkGameTransfers.openFirewall = true;
     };
     git.enable = true;
     kdeconnect.enable = true;
