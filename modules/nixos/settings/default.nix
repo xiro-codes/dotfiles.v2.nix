@@ -15,6 +15,7 @@ in {
   };
   config = mkIf cfg.settings.enable {
     nix = {
+      package = pkgs.nixVersions.latest;
       settings = {
         substituters = [
           "https://nix-community.cachix.org"

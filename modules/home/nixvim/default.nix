@@ -26,7 +26,7 @@ in {
         #{plugin = pkgs.vimPlugins.qmk-nvim;}
       ];
       globals.mapleader = ";";
-      options = {
+      opts = {
         number = true;
         relativenumber = true;
         splitbelow = true;
@@ -217,20 +217,6 @@ in {
             gleam.enable = true;
             tsserver.enable = true;
             html.enable = true;
-            nixd = {
-              enable = true;
-              settings = {
-                eval = {
-                  depth = 10;
-                  workers = 8;
-                };
-                options = {
-                  enable = true;
-                  target = {installable = ".#nixosConfigurations.Sapphire.options";};
-                };
-                formatting.command = "${getExe pkgs.alejandra}";
-              };
-            };
           };
         };
       };
