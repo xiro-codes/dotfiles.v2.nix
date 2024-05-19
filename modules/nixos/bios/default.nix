@@ -22,10 +22,6 @@ in {
 			grub.devices = [ "/dev/sda" ];
     };
     assertions = [
-      {
-        assertion = !(cfg.boot.efi.bootloader == "");
-        message = "BIO's || UEFI";
-      }
     ];
   };
 }
