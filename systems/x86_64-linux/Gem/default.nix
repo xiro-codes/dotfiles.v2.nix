@@ -14,10 +14,8 @@
     settings.enable = true;
     desktops = {
       enable = false;
-      useEnv = true;
-      enableNiri = true;
     };
-    boot.efi.bootloader = "none";
+    boot.bios.enable = true;
   };
   environment.systemPackages = with pkgs; [
   ];
