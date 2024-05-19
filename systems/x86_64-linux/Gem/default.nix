@@ -16,6 +16,7 @@
       enable = false;
     };
     boot.bios.enable = true;
+		boot.efi.bootloader = "none";
   };
   environment.systemPackages = with pkgs; [
   ];
