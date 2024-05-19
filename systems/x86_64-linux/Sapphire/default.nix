@@ -55,9 +55,6 @@ in {
     };
   };
 
-  specialisation = {
-  };
-
   local = let
     videoDir = "/mnt/hdd/videos";
     backupsDir = "/mnt/hdd/backups";
@@ -70,14 +67,6 @@ in {
       useEnv = true;
       enableHyprland = true;
       enableNiri = false;
-    };
-
-    services.minecraft-server = {
-      enable = true;
-      eula = true;
-      openFirewall = true;
-      package = tekkit-classic;
-      dataDir = "/mnt/hdd/minecraft";
     };
     boot = {
       timeout = 5;
@@ -134,19 +123,25 @@ in {
     };
   };
 
-  virtualisation.docker.enable = true;
-  users.users.tod = {
-    name = "tod";
-    isNormalUser = true;
-    extraGroups = ["wheel" "audio" "docker" "adbusers" "networkmanager" "input" "uinput" "dialout"];
-    shell = pkgs.fish;
-    password = "sapphire";
-  };
+  virtualisation = {
+		docker.enable = true;
+		virtualbox.host.enable= true;
+	};
+	
+  users = {
+		extraGroups.vboxusers.members = ["tod"];
+		users.tod = {
+			name = "tod";
+			isNormalUser = true;
+			extraGroups = ["wheel" "audio" "docker" "adbusers" "networkmanager" "input" "uinput" "dialout"];
+			shell = pkgs.fish;
+			password = "sapphire";
+		}; 
+	};
 
   programs = {
     #coolercontrol.enable = true;
     fish.enable = true;
-    virt-manager.enable = true;
     steam = {
       enable = true;
       #localNetworkGameTransfers.openFirewall = true;
