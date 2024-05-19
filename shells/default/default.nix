@@ -1,3 +1,3 @@
-{mkShell, hello, ...}: mkShell {
-		packages = [hello];
-	}
+{mkShell, just, ...}: mkShell {
+		packages = [just];
+}
