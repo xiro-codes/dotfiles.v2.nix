@@ -8,3 +8,12 @@ rebuild:
 update-rebuild:
 	nix flake update 
 	sudo nixos-rebuild switch --upgrade
+
+edit-home SYSTEM="x86_64-linux" USER=`whoami` HOST=`hostname`:
+	nvim homes/{{SYSTEM}}/{{USER}}@{{HOST}}/default.nix
+
+edit-system SYSTEM="x86_64-linux" HOST=`hostname`:
+	nvim -o systems/{{SYSTEM}}/{{HOST}}/default.nix
+
+edit-disk SYSTEM="x86_64-linux" HOST=`hostname`:
+	nvim -O systems/{{SYSTEM}}/{{HOST}}/disk/*.nix
