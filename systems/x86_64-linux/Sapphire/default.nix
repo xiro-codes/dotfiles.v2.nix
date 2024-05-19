@@ -12,7 +12,7 @@
 in {
   imports = [
     ./hardware-configuration.nix
-    (import ./disk-configuration.nix {device = "/dev/nvme0n1";})
+    (import ./disk-configuration.nix {})
     (import ./hdd-configuration.nix {})
     (import ./ssd-configuration.nix {})
   ];
