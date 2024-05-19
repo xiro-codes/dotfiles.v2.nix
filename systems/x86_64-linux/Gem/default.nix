@@ -8,6 +8,7 @@
   ...
 }: {
   imports = [
+    (import ./disk-configuration.nix {device = "/dev/sda";})
   ];
   local = {
     settings.enable = true;
