@@ -15,8 +15,7 @@
     desktops = {
       enable = false;
     };
-    boot.bios.enable = true;
-		boot.efi.bootloader = "none";
+		boot.efi.bootloader = "grub";
   };
   environment.systemPackages = with pkgs; [
   ];
