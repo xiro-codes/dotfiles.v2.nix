@@ -19,6 +19,7 @@ in {
     boot.loader = {
       systemd-boot.enable = false;
       grub.useOSProber = true;
+			grub.devices = [ "/dev/sda" ];
     };
     assertions = [
       {
