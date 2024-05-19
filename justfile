@@ -1,6 +1,12 @@
+# Format disk and install
 install DEVICE HOST=`hostname`:
 	nix run github:nix-community/disko -- --mode disko systems/x86_64-linux/{{HOST}}/disk-configuration.nix --arg device '"{{DEVICE}}"'
-	nixos-install 
+	nixos-install --flake .#{{HOST}}
+
+# Build iso with nixos-generators
+make-iso HOST=`hostname`:
+	nix build .#nixosConfigurations.{{HOST}}.config.formats.install-iso
+	mv result {{HOST}}.iso
 
 rebuild:
 	sudo nixos-rebuild switch
