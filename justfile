@@ -2,8 +2,6 @@
 install DEVICE HOST=`hostname`:
 	nix run github:nix-community/disko -- --mode disko systems/x86_64-linux/{{HOST}}/disk-configuration.nix --arg device '"{{DEVICE}}"'
 	nixos-install --flake .#{{HOST}}
-	mkdir -p /mnt/etc/nixos/
-	cp -r ./* /mnt/etc/nixos/
 
 # Build iso with nixos-generators
 make-iso HOST=`hostname`:

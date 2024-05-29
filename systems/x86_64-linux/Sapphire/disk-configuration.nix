@@ -17,22 +17,16 @@
                 mountpoint = "/boot";
               };
             };
-            home = {
-              name = "home";
-              size = "750G";
-              content = {
-                type = "filesystem";
-                format = "ext4";
-                mountpoint = "/home";
-              };
-            };
             root = {
               name = "root";
               size = "100%";
               content = {
-                type = "filesystem";
-                format = "ext4";
-                mountpoint = "/";
+                type = "btrfs";
+                subvolumes = {
+                  "/rootfs" = {mountpoint = "/";};
+                  "/home" = {mountpoint = "/home";};
+                  "/nix" = {mountpoint = "/nix";};
+                };
               };
             };
           };
