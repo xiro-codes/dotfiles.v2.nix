@@ -17,12 +17,13 @@
                 mountpoint = "/boot";
               };
             };
-            swap = {
-              name = "swap";
-              size = "8G";
+            home = {
+              name = "home";
+              size = "750G";
               content = {
-                type = "swap";
-                resumeDevice = true;
+                type = "filesystem";
+                format = "ext4";
+                mountpoint = "/home";
               };
             };
             root = {

@@ -14,6 +14,14 @@ in {
       default = "5m";
       type = types.str;
     };
+    user = mkOption {
+      default = "tod";
+      type = types.str;
+    };
+    group = mkOption {
+      default = "users";
+      type = types.str;
+    };
     freq = mkOption {
       default = "2h";
       type = types.str;
@@ -45,8 +53,8 @@ in {
             rmdir ${t.dest}/$(date -d "today" "+%Y%m%d") 2> /dev/null || true
           '';
           serviceConfig = {
-            User = "jellyfin";
-            Group = "users";
+            User = self.user;
+            Group = self.group;
             Type = "oneshot";
           };
         };

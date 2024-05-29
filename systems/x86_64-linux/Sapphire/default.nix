@@ -7,7 +7,7 @@
   inputs,
   ...
 }: let
-  inherit (inputs.self.packages.${pkgs.system}) liquidctl tekkit-classic;
+  inherit (inputs.self.packages.${pkgs.system}) liquidctl tekkit-classic xivlauncher;
   inherit (lib) getExe;
 in {
   imports = [
@@ -25,13 +25,11 @@ in {
       discord
       neovide
       helvum
-      comma
-      via
       nvtopPackages.amd
       firefox
-      prismlauncher
+      mangohud
     ])
-    ++ [liquidctl];
+    ++ [liquidctl xivlauncher];
 
   environment.variables = {
     FLAKE = "/etc/nixos";
@@ -66,7 +64,7 @@ in {
       enable = true;
       useEnv = true;
       enableHyprland = true;
-      enableNiri = false;
+      enableNiri = true;
     };
     boot = {
       timeout = 5;
@@ -124,27 +122,27 @@ in {
   };
 
   virtualisation = {
-		docker.enable = true;
-		virtualbox.host.enable= true;
-	};
-	
+    docker.enable = true;
+    virtualbox.host.enable = true;
+  };
+
   users = {
-		extraGroups.vboxusers.members = ["tod"];
-		users.tod = {
-			name = "tod";
-			isNormalUser = true;
-			extraGroups = ["wheel" "audio" "docker" "adbusers" "networkmanager" "input" "uinput" "dialout"];
-			shell = pkgs.fish;
-			password = "sapphire";
-		}; 
-	};
+    extraGroups.vboxusers.members = ["tod"];
+    users.tod = {
+      name = "tod";
+      isNormalUser = true;
+      extraGroups = ["wheel" "audio" "docker" "adbusers" "networkmanager" "input" "uinput" "dialout"];
+      shell = pkgs.fish;
+      password = "sapphire";
+    };
+  };
 
   programs = {
     #coolercontrol.enable = true;
     fish.enable = true;
     steam = {
       enable = true;
-      #localNetworkGameTransfers.openFirewall = true;
+      localNetworkGameTransfers.openFirewall = true;
     };
     git.enable = true;
     kdeconnect.enable = true;
@@ -167,6 +165,7 @@ in {
     jellyfin = {
       enable = true;
       openFirewall = true;
+      user = "tod";
     };
     flatpak.enable = true;
     openssh.enable = true;

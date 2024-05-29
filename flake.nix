@@ -1,7 +1,8 @@
 {
   description = "A very basic flake";
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    stable.url = "github:nixos/nixpkgs/nixos-23.11";
     snowfall-lib = {
       url = "github:snowfallorg/lib/dev";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -60,9 +61,6 @@
       channels-config = {
         # Allow unfree packages.
         allowUnfree = true;
-        permittedInsecurePackages = [
-          "nix-2.16.2"
-        ];
       };
     };
 }

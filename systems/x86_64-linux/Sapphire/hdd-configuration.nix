@@ -26,6 +26,10 @@
                   mountOptions = ["compress=zstd"];
                   mountpoint = "/home/tod/Downloads";
                 };
+								"/pictures" = {
+									mountOptions = ["compress=zstd"];
+									mountpoint = "/home/tod/Pictures";
+								};
                 "/minecraft" = {
                 };
                 "/dotfiles.nix" = {

@@ -54,7 +54,6 @@
     }
 
     spawn-at-startup "wm-random_wallpaper"
-  spawn-at-startup "wm-launch_hud"
 
     // You can override environment variables for processes spawned by niri.
     environment {
@@ -69,7 +68,6 @@
         // Change the theme and size of the cursor as well as set the
         // `XCURSOR_THEME` and `XCURSOR_SIZE` env variables.
         // xcursor-theme "default"
-        xcursor-size 12
     }
 
     // Uncomment this line to ask the clients to omit their client-side decorations if possible.

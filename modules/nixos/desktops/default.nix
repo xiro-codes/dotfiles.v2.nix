@@ -77,7 +77,7 @@ in {
     programs = {
       hyprland = mkIf self.enableHyprland {
         enable = true;
-        #package = hyprland.packages.${pkgs.system}.hyprland;
+        package = inputs.stable.legacyPackages.${pkgs.system}.hyprland;
       };
     };
     local.programs = {
@@ -100,7 +100,7 @@ in {
         pulse.enable = true;
         alsa.enable = true;
       };
-      greetd = mkIf (self.enableGreeter){
+      greetd = mkIf (self.enableGreeter) {
         enable = true;
         vt = 2;
         settings = {

@@ -30,8 +30,9 @@ in {
           cd = "z";
           tcd = "cd \$(mktemp -d)";
           lsa = "eza --icons always --all";
+          lsl = "eza --icons always -al";
           lgit = "lazygit";
-          fm = "joshuto";
+          fm = "ranger";
           du = "dust";
           df = "duf";
         };

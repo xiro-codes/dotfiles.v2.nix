@@ -18,12 +18,10 @@ in {
   config = mkIf (cfg.nixvim.enable) {
     local.editor = "nvim";
     programs.nixvim = {
-      package = inputs.neovim-nightly.packages.${pkgs.system}.neovim;
       enable = true;
       extraPlugins = [
         {plugin = pkgs.vimPlugins.zoxide-vim;}
         {plugin = pkgs.vimPlugins.fzf-vim;}
-        #{plugin = pkgs.vimPlugins.qmk-nvim;}
       ];
       globals.mapleader = ";";
       opts = {
@@ -134,19 +132,6 @@ in {
         HOME = os.getenv("HOME")
         vim.opt.undodir = HOME .. "/.config/nvim/undo"
         vim.o.background = "light"
-        --require("lazy").setup({
-        --	{
-        --		"codethread/qmk.nvim", main = "qmk", opts = {
-        --			name = "LAYOUT_ortho_4x12",
-        --			layout = {
-        --				'x x x x x x x x x x x x',
-        --				'x x x x x x x x x x x x',
-        --				'x x x x x x x x x x x x',
-        --				'x x x x x x x x x x x x',
-        --			},
-        --		},
-        --	}
-        --})
         if vim.g.neovide then
         	vim.o.guifont = "Cascadia Code:h10"
         	vim.g.neovide_cursor_vfx_mode = "railgun"
@@ -155,6 +140,7 @@ in {
       '';
       extraConfigVim = ''
         set iskeyword-=_
+				set formatoptions-=cro
       '';
       plugins = {
         lualine.enable = false;
@@ -170,7 +156,7 @@ in {
         neo-tree.enable = true;
         rustaceanvim = {
           enable = true;
-          server.settings = {
+          settings.server.settings = {
             files = {
               excludeDirs = [".direnv"];
             };
@@ -217,6 +203,16 @@ in {
             gleam.enable = true;
             tsserver.enable = true;
             html.enable = true;
+						nixd = {
+              enable = true;
+              settings = {
+                eval = {
+                  depth = 10;
+                  workers = 8;
+                };
+                formatting.command = ["${getExe pkgs.alejandra}"];
+              };
+            };
           };
         };
       };

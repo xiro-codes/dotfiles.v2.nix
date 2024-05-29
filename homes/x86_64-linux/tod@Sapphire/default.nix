@@ -34,13 +34,11 @@ in {
     fonts.enable = true;
 
     nixvim.enable = true;
-    neovim.enable = false;
 
     eww.enable = true;
     kitty.enable = true;
 
-    joshuto.enable = true;
-
+		ranger.enable = true;
     guiFileManager = "${lib.getExe pkgs.pcmanfm}";
     guiTerminal = "${lib.getExe' inputs.self.packages.${pkgs.system}.warp-terminal-wayland "warp-terminal"}";
 
@@ -66,12 +64,12 @@ in {
         workspaces = [4 5 6];
       }
     ];
-    waybar.theme = "arin";
     theme = "arin";
   };
   home.file = {
     ".wallpaper".source = ./arin.png;
   };
+
   gtk = {
     enable = true;
     cursorTheme = {

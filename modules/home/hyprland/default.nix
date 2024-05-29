@@ -22,6 +22,11 @@ in {
       default = "~/.wallpaper";
     };
 
+		autostart = mkOption {
+			type = with types; listOf str;
+			default = [];
+		};
+
     monitors = mkOption {
       default = [];
       type = with types;
@@ -55,7 +60,7 @@ in {
 
     systemd.user.services.monitors-hook = {
       Unit = {
-        Description = "Relaunh hud on monitor change";
+        Description = "Relaunch hud on monitor change";
       };
       Install = {
         WantedBy = ["hyprland-session.target"];
@@ -65,6 +70,7 @@ in {
         Restart = "always";
       };
     };
+
     wayland.windowManager.hyprland = {
       enable = true;
       systemd.enable = true;
@@ -106,12 +112,17 @@ in {
           "float, ^(feh)$"
           "float, title:^(game)"
         ];
+				windowrulev2 = [
+					"float, class:^([Ss]team)$,title:^((?![Ss]team).*|[Ss]team [Ss]ettings)$"
+				];
         exec-once = [
           "wl-paste --type text --watch cliphist store"
           "steam -silent"
           "${getExe hyprland-scripts}"
+					"${getExe pkgs.swaybg} -m fill -i ~/.wallpaper"
           ''${pkgs.swayidle}/bin/swayidle lock "${hyprland-scripts}/bin/wm-lock"''
-        ];
+        ] ++ (cfg.hyprland.autostart);
+
         monitor =
           map
           (m: let
