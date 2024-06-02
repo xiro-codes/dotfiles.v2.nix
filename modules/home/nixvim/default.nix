@@ -22,6 +22,7 @@ in {
       extraPlugins = [
         {plugin = pkgs.vimPlugins.zoxide-vim;}
         {plugin = pkgs.vimPlugins.fzf-vim;}
+        {plugin = pkgs.vimPlugins.vimwiki;}
       ];
       globals.mapleader = ";";
       opts = {
@@ -139,8 +140,8 @@ in {
         end
       '';
       extraConfigVim = ''
-        set iskeyword-=_
-				set formatoptions-=cro
+            set iskeyword-=_
+        set formatoptions-=cro
       '';
       plugins = {
         lualine.enable = false;
@@ -194,16 +195,16 @@ in {
             gd = "definition";
             gi = "implementation";
             gt = "type_definition";
-						"<leader>rn" = "rename";
-						"<leader>ca" = "code_action";
-						"<leader>df" = "format";
+            "<leader>rn" = "rename";
+            "<leader>ca" = "code_action";
+            "<leader>df" = "format";
           };
           servers = {
             nil_ls.enable = true;
             gleam.enable = true;
             tsserver.enable = true;
             html.enable = true;
-						nixd = {
+            nixd = {
               enable = true;
               settings = {
                 eval = {

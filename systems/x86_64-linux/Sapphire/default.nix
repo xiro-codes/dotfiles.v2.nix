@@ -64,7 +64,7 @@ in {
       enable = true;
       useEnv = true;
       enableHyprland = true;
-      enableNiri = true;
+      enableNiri = false;
     };
     boot = {
       timeout = 5;
@@ -147,7 +147,6 @@ in {
     git.enable = true;
     kdeconnect.enable = true;
     adb.enable = true;
-
     #nh = {
     #  enable = true;
     #  clean.enable = true;
@@ -167,7 +166,15 @@ in {
       openFirewall = true;
       user = "tod";
     };
-    flatpak.enable = true;
+    ollama = {
+      enable = true;
+      sandbox = false;
+      acceleration = "rocm";
+      environmentVariables = {
+        OLLAMA_ORIGINS = "*";
+      };
+    };
+    homepage-dashboard.enable = true;
     openssh.enable = true;
     gvfs.enable = true;
     udisks2.enable = true;

@@ -23,3 +23,6 @@ edit-system SYSTEM="x86_64-linux" HOST=`hostname`:
 
 edit-disk SYSTEM="x86_64-linux" HOST=`hostname`:
 	nvim -O systems/{{SYSTEM}}/{{HOST}}/disk/*.nix
+
+edit-module DOMAIN="home" MODULE="":
+	nvim -O modules/{{DOMAIN}}/{{MODULE}}/*.nix

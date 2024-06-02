@@ -12,8 +12,6 @@
 
   home.stateVersion = "23.05"; # Please read the comment before changing.
   home.packages = with pkgs; [
-    librewolf
-    nerdfonts
     unzip
     p7zip
     sysstat
@@ -38,7 +36,6 @@
     nixvim.enable = true;
 
     kitty.enable = true;
-
     joshuto.enable = true;
     hyprland.enable = false;
     guiFileManager = "${lib.getExe pkgs.pcmanfm}";

@@ -4,10 +4,10 @@
   lib,
   inputs,
   ...
-}:
-with lib; let
+}: let
   inherit (inputs.self.packages.${pkgs.system}) hyprland-scripts;
   inherit (inputs.self.lib) reduce;
+  inherit (lib) getExe mkOption types mkIf;
   cfg = config.local;
 
   variables = config.home.sessionVariables;
@@ -22,15 +22,17 @@ in {
       default = "~/.wallpaper";
     };
 
-		autostart = mkOption {
-			type = with types; listOf str;
-			default = [];
-		};
-
-    monitors = mkOption {
+    autostart = mkOption {
+      type = with types; listOf str;
       default = [];
-      type = with types;
-        listOf (submodule {
+    };
+
+    monitors = let
+      inherit (types) bool str listOf submodule int;
+    in
+      mkOption {
+        default = [];
+        type = listOf (submodule {
           options = {
             enabled = mkOption {
               type = bool;
@@ -41,13 +43,16 @@ in {
             height = mkOption {type = int;};
             rate = mkOption {type = int;};
             scale = mkOption {type = int;};
-            transform = mkOption {type = int; default = 0;};
+            transform = mkOption {
+              type = int;
+              default = 0;
+            };
             x = mkOption {type = int;};
             y = mkOption {type = int;};
             workspaces = mkOption {type = listOf int;};
           };
         });
-    };
+      };
   };
   config = mkIf (cfg.hyprland.enable) {
     home.packages = with pkgs;
@@ -70,7 +75,7 @@ in {
         Restart = "always";
       };
     };
-
+    home.file.".wallpaper".source = ./${cfg.theme}.png;
     wayland.windowManager.hyprland = {
       enable = true;
       systemd.enable = true;
@@ -112,23 +117,23 @@ in {
           "float, ^(feh)$"
           "float, title:^(game)"
         ];
-				windowrulev2 = [
-					"float, class:^([Ss]team)$,title:^((?![Ss]team).*|[Ss]team [Ss]ettings)$"
-				];
-        exec-once = [
-          "wl-paste --type text --watch cliphist store"
-          "steam -silent"
-          "${getExe hyprland-scripts}"
-					"${getExe pkgs.swaybg} -m fill -i ~/.wallpaper"
-          ''${pkgs.swayidle}/bin/swayidle lock "${hyprland-scripts}/bin/wm-lock"''
-        ] ++ (cfg.hyprland.autostart);
+        windowrulev2 = [
+          "float, class:^([Ss]team)$,title:^((?![Ss]team).*|[Ss]team [Ss]ettings)$"
+        ];
+        exec-once =
+          [
+            "wl-paste --type text --watch cliphist store"
+            ''${pkgs.swayidle}/bin/swayidle lock "${hyprland-scripts}/bin/wm-lock"''
+            "${getExe pkgs.swaybg} -m fill -i ~/.wallpaper"
+          ]
+          ++ (cfg.hyprland.autostart);
 
         monitor =
           map
           (m: let
             resolution = "${toString m.width}x${toString m.height}@${toString m.rate}";
             position = "${toString m.x}x${toString m.y}";
-						transform = "transform,${toString m.transform}";
+            transform = "transform,${toString m.transform}";
           in "${m.name},${
             if m.enabled
             then "${resolution},${position},${toString m.scale},${transform}"
@@ -136,11 +141,11 @@ in {
           }")
           (cfg.hyprland.monitors);
 
-        workspace = reduce (cs: s: cs ++ s) (map (m: map (w: "${m.name}, ${toString w}") m.workspaces) (cfg.hyprland.monitors));
+        workspace = reduce (cs: s: cs ++ s) (map (m: map (w: "${toString w}, persistent:true, monitor:${m.name}") m.workspaces) (cfg.hyprland.monitors));
 
         bind = [
-          "$mod_SHIFT, Return, exec, ${variables.GUI_TERMINAL}"
           "$mod, Return, exec, ${variables.TERMINAL}"
+          "$mod_SHIFT, Return, exec, ${variables.GUI_TERMINAL}"
 
           "$mod, E, exec, ${variables.GUI_FILEMANAGER}"
           "$mod_SHIFT, E, exec, ${variables.FILEMANAGER}"
@@ -161,17 +166,14 @@ in {
           "$mod, K, movefocus, u"
           "$mod, L, movefocus, r"
 
-          "$super, J, layoutmsg, cyclenext"
+          "$mod_SHIFT, H, movewindow, l"
+          "$mod_SHIFT, J, movewindow, d"
+          "$mod_SHIFT, K, movewindow, u"
+          "$mod_SHIFT, L, movewindow, r"
 
-          "$super, K, layoutmsg, cycleprev"
+          "$mod, Tab, changegroupactive"
+          "$mod, G, togglegroup"
 
-          "$mod_SHIFT, J, layoutmsg, swapnext"
-          "$mod_SHIFT, K, layoutmsg, swapprev"
-          #"$mod_SHIFT, H, movewindow, l"
-          #"$mod_SHIFT, J, movewindow, d"
-          #"$mod_SHIFT, K, movewindow, u"
-          #"$mod_SHIFT, L, movewindow, r"
-          "$mod, Tab, workspace, next_on_output"
           "$mod, U, workspace, 1"
           "$mod, I, workspace, 2"
           "$mod, O, workspace, 3"

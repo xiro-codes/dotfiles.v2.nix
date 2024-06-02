@@ -6,6 +6,7 @@
   ...
 }: let
   inherit (inputs.self.packages.${pkgs.system}) hyprland-scripts vlc;
+  inherit (lib) getExe;
 in {
   imports = [
   ];
@@ -38,36 +39,40 @@ in {
     eww.enable = true;
     kitty.enable = true;
 
-		ranger.enable = true;
+    ranger.enable = true;
     guiFileManager = "${lib.getExe pkgs.pcmanfm}";
     guiTerminal = "${lib.getExe' inputs.self.packages.${pkgs.system}.warp-terminal-wayland "warp-terminal"}";
 
-    hyprland.monitors = [
-      {
-        name = "DP-1";
-        scale = 1;
-        width = 1920;
-        height = 1080;
-        rate = 60;
-        x = 320;
-        y = 1080;
-        workspaces = [1 2 3];
-      }
-      {
-        name = "HDMI-A-1";
-        scale = 1;
-        width = 2560;
-        height = 1080;
-        rate = 60;
-        x = 0;
-        y = 0;
-        workspaces = [4 5 6];
-      }
-    ];
+    hyprland = {
+      autostart = [
+        "steam -silent"
+        "${getExe hyprland-scripts}"
+        "${getExe pkgs.swaybg} -m fill -i ~/.wallpaper"
+      ];
+      monitors = [
+        {
+          name = "DP-1";
+          scale = 1;
+          width = 1920;
+          height = 1080;
+          rate = 60;
+          x = 320;
+          y = 1080;
+          workspaces = [1 2 3];
+        }
+        {
+          name = "HDMI-A-1";
+          scale = 1;
+          width = 2560;
+          height = 1080;
+          rate = 60;
+          x = 0;
+          y = 0;
+          workspaces = [4 5 6];
+        }
+      ];
+    };
     theme = "arin";
-  };
-  home.file = {
-    ".wallpaper".source = ./arin.png;
   };
 
   gtk = {
