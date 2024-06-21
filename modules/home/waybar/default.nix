@@ -20,7 +20,7 @@ in {
     home.packages = with pkgs; [pavucontrol jq wttrbar];
     programs.waybar = {
       enable = true;
-      package = inputs.stable.legacyPackages.${pkgs.system}.waybar;
+      #package = inputs.self.packages.${pkgs.system}.waybar;
       systemd = {
         enable = true;
         target = "hyprland-session.target";

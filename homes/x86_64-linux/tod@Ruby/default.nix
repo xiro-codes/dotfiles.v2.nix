@@ -12,8 +12,6 @@
 
   home.stateVersion = "23.05"; # Please read the comment before changing.
   home.packages = with pkgs; [
-    librewolf
-    nerdfonts
     unzip
     p7zip
     sysstat
@@ -39,7 +37,7 @@
 
     kitty.enable = true;
     fonts.enable = true;
-    joshuto.enable = true;
+    ranger.enable = true;
     hyprland.enable = false;
     guiFileManager = "${lib.getExe pkgs.pcmanfm}";
     guiTerminal = "${lib.getExe inputs.self.packages.${pkgs.system}.warp-terminal-wayland}";
