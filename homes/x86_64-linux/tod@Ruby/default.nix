@@ -38,7 +38,7 @@
     nixvim.enable = true;
 
     kitty.enable = true;
-
+    fonts.enable = true;
     joshuto.enable = true;
     hyprland.enable = false;
     guiFileManager = "${lib.getExe pkgs.pcmanfm}";
