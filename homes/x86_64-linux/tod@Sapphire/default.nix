@@ -52,6 +52,7 @@ in {
       monitors = [
         {
           name = "DP-1";
+          enabled = true;
           scale = 1;
           width = 1920;
           height = 1080;

@@ -62,7 +62,6 @@ in {
         cliphist
       ]
       ++ [hyprland-scripts];
-
     systemd.user.services.monitors-hook = {
       Unit = {
         Description = "Relaunch hud on monitor change";
@@ -92,15 +91,18 @@ in {
           follow_mouse = "1";
           mouse_refocus = false;
         };
+        device = {
+          name = "sony-computer-entertainment-wireless-controller-touchpad";
+          enabled = false;
+        };
         master = {
-          new_is_master = false;
           mfact = "0.65";
         };
         decoration = {
           rounding = "4";
           shadow_offset = "0 4";
           "col.shadow" = "rgba(00000099)";
-          inactive_opacity = "0.7";
+          inactive_opacity = "1.0";
           active_opacity = "1.0";
           fullscreen_opacity = "1";
         };
@@ -124,7 +126,7 @@ in {
           [
             "wl-paste --type text --watch cliphist store"
             ''${pkgs.swayidle}/bin/swayidle lock "${hyprland-scripts}/bin/wm-lock"''
-            "${getExe pkgs.swaybg} -m fill -i ~/.wallpaper"
+            #"${getExe pkgs.swaybg} -m fill -i ~/.wallpaper"
           ]
           ++ (cfg.hyprland.autostart);
 
@@ -151,7 +153,7 @@ in {
           "$mod_SHIFT, E, exec, ${variables.FILEMANAGER}"
 
           "$mod, P, exec, ${variables.LAUNCHER} -show drun -show-icons"
-
+          "$mod, T, exec, hdhomerun-client"
           "$mod, Space, layoutmsg, swapwithmaster master"
 
           "$mod_SHIFT, Q, killactive"

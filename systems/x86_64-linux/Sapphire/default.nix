@@ -28,9 +28,14 @@ in {
       nvtopPackages.amd
       firefox
       mangohud
+      mpv
     ])
-    ++ [liquidctl xivlauncher];
-
+    ++ [
+      liquidctl
+      xivlauncher
+      inputs.hdhomerun-client.packages.${pkgs.system}.default
+    ];
+  jovian.steam.enable = true;
   environment.variables = {
     FLAKE = "/etc/nixos";
   };
@@ -64,7 +69,6 @@ in {
       enable = true;
       useEnv = true;
       enableHyprland = true;
-      enableNiri = false;
     };
     boot = {
       timeout = 5;
@@ -103,6 +107,16 @@ in {
           channel = "https://www.youtube.com/@CiderSpider";
           dest = "${videoDir}/youtube/CiderSpider";
         }
+        {
+          name = "CriticalReacts";
+          channel = "https://www.youtube.com/@CriticalReacts";
+          dest = "${videoDir}/youtube/CriticalReacts";
+        }
+        {
+          name = "AtriocClips";
+          channel = "https://www.youtube.com/@AtriocClips";
+          dest = "${videoDir}/youtube/AtriocClips";
+        }
       ];
     };
     backups = {
@@ -140,13 +154,12 @@ in {
   programs = {
     #coolercontrol.enable = true;
     fish.enable = true;
+    gamescope.enable = true;
     steam = {
       enable = true;
       localNetworkGameTransfers.openFirewall = true;
     };
     git.enable = true;
-    kdeconnect.enable = true;
-    adb.enable = true;
     #nh = {
     #  enable = true;
     #  clean.enable = true;
@@ -154,10 +167,12 @@ in {
     #};
   };
   services = {
+    flatpak.enable = true;
+    printing.enable = true;
     tailscale.enable = true;
     blueman.enable = true;
     komga = {
-      enable = false;
+      enable = true;
       port = 8090;
       openFirewall = true;
     };
@@ -174,7 +189,6 @@ in {
         OLLAMA_ORIGINS = "*";
       };
     };
-    homepage-dashboard.enable = true;
     openssh.enable = true;
     gvfs.enable = true;
     udisks2.enable = true;

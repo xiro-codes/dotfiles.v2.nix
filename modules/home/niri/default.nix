@@ -73,13 +73,12 @@ in {
         });
     };
   };
-  config = mkIf (cfg.hyprland.enable) {
+  config = mkIf (cfg.niri.enable) {
     home.packages = with pkgs;
       [
         wl-clipboard
         espeak
         libnotify
-        easyeffects
         cliphist
         wtype
         wlogout

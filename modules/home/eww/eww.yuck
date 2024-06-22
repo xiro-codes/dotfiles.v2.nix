@@ -25,7 +25,7 @@
 		(box :class "dockbox"
 			(box :orientation "v" :spacing 10 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
 				(button :timeout "10000ms" :style "background-image: url('images/icons/dashboard.svg');" :class "appicon" :onclick "rofi -show drun -normal-window")
-				(button :style "background-image: url('images/icons/apps/terminal.png');" :class "appicon" :onclick "systemd-run --user warp-terminal")
+				(button :style "background-image: url('images/icons/apps/terminal.png');" :class "appicon" :onclick "systemd-run --user kitty -d /home/tod/")
 				(button :style "background-image: url('images/icons/apps/firefox.png');" :class "appicon" :onclick "systemd-run --user firefox")
 				(button :style "background-image: url('images/icons/apps/files.png');" :class "appicon" :onclick "systemd-run --user pcmanfm ")
 				(button :style "background-image: url('images/icons/apps/notes.png');" :class "appicon" :onclick "systemd-run --user obsidian")
@@ -78,7 +78,7 @@
 (apps))
 
 (defwindow apps1
-           :monitor 1 
+           :monitor 0 
            :geometry (geometry :x "4px"
                                :y "385px"
                                :width "60px"
@@ -104,7 +104,7 @@
            :wm-ignore false
 (music))
 (defwindow music1
-           :monitor 1
+           :monitor 0
            :geometry (geometry :x "68px"
                                :y "4px"
                                :width "460px"
@@ -128,7 +128,7 @@
            :wm-ignore false
 (clock))
 (defwindow clock1 
-           :monitor 1 
+           :monitor 0
            :geometry (geometry :x "554px"
                                :y "4px"
                                :width "300px"

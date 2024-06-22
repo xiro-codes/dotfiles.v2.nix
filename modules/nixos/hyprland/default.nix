@@ -22,7 +22,7 @@ in {
         [Desktop Entry]
             Name=Hyprland
             Comment=Hyprland Session for greetd
-            Exec=${config.programs.hyprland.finalPackage}/bin/Hyprland
+            Exec=${inputs.hyprland.packages.${pkgs.system}.default}/bin/Hyprland
       '';
     };
   };

@@ -77,7 +77,7 @@ in {
     programs = {
       hyprland = mkIf self.enableHyprland {
         enable = true;
-        #package = hyprland.packages.${pkgs.system}.hyprland;
+        package = hyprland.packages.${pkgs.system}.hyprland;
       };
     };
     local.programs = {

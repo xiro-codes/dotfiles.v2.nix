@@ -24,7 +24,7 @@
       url = "github:Jovian-Experiments/Jovian-NixOS";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -34,6 +34,7 @@
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hdhomerun-client.url = "github:xiro-codes/hdhomerun-client";
   };
   outputs = {
     self,
@@ -51,6 +52,9 @@
       ];
 
       systems.hosts.Ruby.modules = with inputs; [
+        jovian.nixosModules.default
+      ];
+      systems.hosts.Sapphire.modules = with inputs; [
         jovian.nixosModules.default
       ];
 

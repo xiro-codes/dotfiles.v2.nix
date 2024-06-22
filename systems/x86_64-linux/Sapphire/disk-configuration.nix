@@ -22,10 +22,12 @@
               size = "100%";
               content = {
                 type = "btrfs";
+                mountpoint = "/mnt/root";
                 subvolumes = {
                   "/rootfs" = {mountpoint = "/";};
                   "/home" = {mountpoint = "/home";};
                   "/nix" = {mountpoint = "/nix";};
+                  #"/ffxiv" = {mountpoint = "/home/tod/.xlcore";};
                 };
               };
             };

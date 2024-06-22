@@ -159,7 +159,7 @@ in {
           enable = true;
           settings.server.settings = {
             files = {
-              excludeDirs = [".direnv"];
+              excludeDirs = [".direnv" "target"];
             };
           };
         };
@@ -201,7 +201,6 @@ in {
           };
           servers = {
             nil_ls.enable = true;
-            gleam.enable = true;
             tsserver.enable = true;
             html.enable = true;
             nixd = {

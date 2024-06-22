@@ -13,20 +13,21 @@
     name = "${prefix}-sunset";
     runtimeInputs = [pkgs.wlsunset];
     text = ''
-      wlsunset -S 6:00 -s 17:00
+      wlsunset -S 6:00 -s 20:00
     '';
   };
   monitors_hook = writeShellApplication {
     name = "${prefix}-monitors-hook";
     runtimeInputs = [pkgs.socat];
     text = ''
-        handle() {
-          case "$1" in
-      monitoraddedv2*) ${getExe launch_full_hud};;
-          esac
-        }
+           handle() {
+             case "$1" in
+					monitoradded*) ${getExe launch_full_hud};;
+         #monitoraddedv2*) ${getExe launch_full_hud};;
+             esac
+           }
 
-        socat -U - UNIX-CONNECT:/tmp/hypr/"$HYPRLAND_INSTANCE_SIGNATURE"/.socket2.sock | while read -r line; do handle "$line"; done
+           socat -U - UNIX-CONNECT:/tmp/hypr/"$HYPRLAND_INSTANCE_SIGNATURE"/.socket2.sock | while read -r line; do handle "$line"; done
     '';
   };
   lock = writeShellApplication {
@@ -49,7 +50,7 @@
   };
 
   launch_full_hud = pkgs.writeShellScriptBin "${prefix}-launch_hud" ''
-    ${getExe pkgs.eww} open-many apps apps1 clock clock1 music music1
+    ${getExe pkgs.eww} open-many apps1 clock1 music1
   '';
   open_full_hud = pkgs.writeShellScriptBin "${prefix}-open-hud" ''
     ${getExe pkgs.eww} open-many apps apps1 clock clock1 music music1
@@ -85,7 +86,6 @@
     text = ''
       ${getExe sunset} &
       ${getExe launch_full_hud};
-      ${getExe random_wallpaper};
     '';
   };
 in

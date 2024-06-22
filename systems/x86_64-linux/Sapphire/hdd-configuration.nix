@@ -26,10 +26,10 @@
                   mountOptions = ["compress=zstd"];
                   mountpoint = "/home/tod/Downloads";
                 };
-								"/pictures" = {
-									mountOptions = ["compress=zstd"];
-									mountpoint = "/home/tod/Pictures";
-								};
+                "/pictures" = {
+                  mountOptions = ["compress=zstd"];
+                  mountpoint = "/home/tod/Pictures";
+                };
                 "/minecraft" = {
                 };
                 "/dotfiles.nix" = {
@@ -45,6 +45,9 @@
                 "/music" = {
                   mountOptions = ["compress=zstd"];
                   mountpoint = "/home/tod/Music";
+                };
+                "/ffxiv" = {
+                  mountpoint = "/home/tod/.xlcore";
                 };
               };
             };
