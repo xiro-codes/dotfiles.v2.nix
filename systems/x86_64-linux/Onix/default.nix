@@ -63,6 +63,7 @@
     gitea = {
       enable = true;
       stateDir = "/mnt/storage/gitea";
+      useWizard = true;
     };
     transmission = {
       enable = true;
