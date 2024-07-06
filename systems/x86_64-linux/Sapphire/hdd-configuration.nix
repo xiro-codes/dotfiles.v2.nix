@@ -1,7 +1,6 @@
 {
   device0 ? "/dev/disk/by-id/ata-TOSHIBA_DT01ACA100_69C5R9EMS",
   device1 ? "/dev/disk/by-id/ata-WDC_WD1003FZEX-00K3CA0_WD-WCC6Y4HSL50L",
-  device2 ? "/dev/disk/by-id/usb-Seagate_Backup+_Hub_BK_NA9RR3RS-0:0",
   ...
 }: {
   disko.devices = {
@@ -39,8 +38,6 @@
                   mountpoint = "/home/tod/.ssh";
                 };
                 "/videos" = {
-                  mountOptions = ["compress=zstd"];
-                  mountpoint = "/home/tod/Videos";
                 };
                 "/music" = {
                   mountOptions = ["compress=zstd"];
@@ -56,22 +53,6 @@
       };
     };
     disk = {
-      hdd2 = {
-        device = device2;
-        type = "disk";
-        content = {
-          type = "gpt";
-          partitions = {
-            primary = {
-              size = "100%";
-              content = {
-                type = "lvm_pv";
-                vg = "hdd-pool";
-              };
-            };
-          };
-        };
-      };
       hdd1 = {
         device = device1;
         type = "disk";

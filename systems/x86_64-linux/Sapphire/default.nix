@@ -35,7 +35,6 @@ in {
       xivlauncher
       inputs.hdhomerun-client.packages.${pkgs.system}.default
     ];
-  jovian.steam.enable = true;
   environment.variables = {
     FLAKE = "/etc/nixos";
   };
@@ -77,6 +76,11 @@ in {
     youtube-dl = {
       freq = "30m";
       targets = [
+        {
+          name = "Dashadrywet";
+          channel = "https://www.youtube.com/@dashadrywet";
+          dest = "${videoDir}/youtube/Dshadrywet";
+        }
         {
           name = "SomeOrdinaryGamers";
           channel = "https://www.youtube.com/@SomeOrdinaryGamers";
@@ -121,16 +125,6 @@ in {
     };
     backups = {
       targets = [
-        {
-          name = "dotfiles";
-          source = "/mnt/hdd/dotfiles.nix";
-          dest = "/mnt/hdd/backups/dotfiles.nix";
-        }
-        {
-          name = "documents";
-          source = "/mnt/hdd/documents";
-          dest = "/mnt/hdd/backups/documents";
-        }
       ];
     };
   };
@@ -154,7 +148,7 @@ in {
   programs = {
     #coolercontrol.enable = true;
     fish.enable = true;
-    gamescope.enable = true;
+    gamescope.enable = false;
     steam = {
       enable = true;
       localNetworkGameTransfers.openFirewall = true;
@@ -172,17 +166,17 @@ in {
     tailscale.enable = true;
     blueman.enable = true;
     komga = {
-      enable = true;
+      enable = false;
       port = 8090;
       openFirewall = true;
     };
     jellyfin = {
-      enable = true;
+      enable = false;
       openFirewall = true;
       user = "tod";
     };
     ollama = {
-      enable = true;
+      enable = false;
       sandbox = false;
       acceleration = "rocm";
       environmentVariables = {
