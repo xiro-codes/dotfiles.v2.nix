@@ -11,17 +11,9 @@
     ./hardware-configuration.nix
     (import ./disk-configuration.nix {device = "/dev/nvme0n1";})
   ];
-  boot.loader = {
-    efi.canTouchEfiVariables = true;
-    systemd-boot.enable = true;
-    timeout = lib.mkForce 5;
-  };
   environment.systemPackages = with pkgs; [
   ];
 
-  environment.variables = {
-    FLAKE = "/etc/nixos";
-  };
   hardware = {
     enableRedistributableFirmware = true;
   };
@@ -71,6 +63,10 @@
     gitea = {
       enable = true;
       stateDir = "/mnt/storage/gitea";
+    };
+    transmission = {
+      enable = true;
+      settings.download-dir = "/mnt/media/downloads";
     };
   };
   fileSystems."/mnt/storage" = {
