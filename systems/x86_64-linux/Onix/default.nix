@@ -69,8 +69,11 @@
       group = "users";
     };
   };
-  fileSystems."/mnt/media" = {
+  fileSystems."/mnt/storage" = {
     device = "/dev/disk/by-id/ata-WDC_WD10EZEX-22MFCA0_WD-WCC6Y2AV1NZC-part1";
   };
+	fileSystems."/mnt/media" = {
+		device = "/dev/disk/by-id/ata-ST8000DM004-2U9188_ZR12S72H-part1"
+	};
   system.stateVersion = "24.05";
 }
