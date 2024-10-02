@@ -26,7 +26,7 @@
 			(box :orientation "v" :spacing 10 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
 				(button :timeout "10000ms" :style "background-image: url('images/icons/dashboard.svg');" :class "appicon" :onclick "rofi -show drun -normal-window")
 				(button :style "background-image: url('images/icons/apps/terminal.png');" :class "appicon" :onclick "systemd-run --user kitty -d /home/tod/")
-				(button :style "background-image: url('images/icons/apps/firefox.png');" :class "appicon" :onclick "systemd-run --user firefox")
+				(button :style "background-image: url('images/icons/apps/firefox.png');" :class "appicon" :onclick "systemd-run --user io.github.zen_browser.zen")
 				(button :style "background-image: url('images/icons/apps/files.png');" :class "appicon" :onclick "systemd-run --user pcmanfm ")
 				(button :style "background-image: url('images/icons/apps/notes.png');" :class "appicon" :onclick "systemd-run --user obsidian")
 				(box (button :class "album_art" :style "background-image: url('${COVER}');" :onclick "systemd-run --user kitty --class=MusicPlayer ncmpcpp"))

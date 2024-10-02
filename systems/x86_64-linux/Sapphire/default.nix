@@ -32,7 +32,6 @@ in {
     ])
     ++ [
       liquidctl
-      xivlauncher
       inputs.hdhomerun-client.packages.${pkgs.system}.default
     ];
   environment.variables = {
@@ -48,7 +47,7 @@ in {
     useDHCP = false;
     firewall.enable = true;
     networkmanager = {
-      enable = true;
+      enable = false;
       wifi.backend = "iwd";
     };
     wireless = {
@@ -80,6 +79,11 @@ in {
           name = "Dashadrywet";
           channel = "https://www.youtube.com/@dashadrywet";
           dest = "${videoDir}/youtube/Dshadrywet";
+        }
+        {
+          name = "CookieSwirl";
+          channel = "https://www.youtube.com/@TheCookieSwirl";
+          dest = "${videoDir}/youtube/CookieSwirl";
         }
         {
           name = "SomeOrdinaryGamers";
@@ -159,6 +163,13 @@ in {
     #  clean.enable = true;
     #  clean.extraArgs = "--keep-since 5d --keep 10";
     #};
+					anime-game-launcher.enable = true; # Adds launcher and /etc/hosts rules
+          anime-games-launcher.enable = true;
+          anime-borb-launcher.enable = true;
+          honkers-railway-launcher.enable = true;
+          honkers-launcher.enable = true;
+          wavey-launcher.enable = true;
+          sleepy-launcher.enable = true;
   };
   services = {
     flatpak.enable = true;
@@ -207,6 +218,14 @@ in {
       User = "root";
       Type = "oneshot";
     };
+  };
+  fileSystems."/mnt/Videos" = {
+    device = "onix.home:/mnt/Media/Videos";
+    fsType = "nfs";
+  };
+  fileSystems."/mnt/Roms" = {
+    device = "onix.home:/mnt/Media/Roms";
+    fsType = "nfs";
   };
   system.stateVersion = "24.05";
 }

@@ -15,6 +15,8 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    impermanence.url = "github:nix-community/impermanence";
+
     niri = {
       url = "github:YaLTeR/niri";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -26,7 +28,7 @@
     };
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     nixvim = {
-      url = "github:nix-community/nixvim";
+      url = "github:nix-community/nixvim/nixos-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
@@ -35,6 +37,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hdhomerun-client.url = "github:xiro-codes/hdhomerun-client";
+    aagl = {
+      url = "github:ezKEa/aagl-gtk-on-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs = {
     self,
@@ -49,17 +55,18 @@
       systems.modules.nixos = with inputs; [
         disko.nixosModules.default
         nixos-generators.nixosModules.all-formats
+        aagl.nixosModules.default
       ];
 
       systems.hosts.Ruby.modules = with inputs; [
         jovian.nixosModules.default
       ];
       systems.hosts.Sapphire.modules = with inputs; [
-        jovian.nixosModules.default
       ];
 
       homes.modules = with inputs; [
         nixvim.homeManagerModules.nixvim
+        impermanence.nixosModules.home-manager.impermanence
       ];
 
       channels-config = {

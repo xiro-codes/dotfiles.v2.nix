@@ -118,6 +118,7 @@ in {
           "float, ^(swayimg)$"
           "float, ^(feh)$"
           "float, title:^(game)"
+          "float, title:^(Picture-in-Picture)"
         ];
         windowrulev2 = [
           "float, class:^([Ss]team)$,title:^((?![Ss]team).*|[Ss]team [Ss]ettings)$"

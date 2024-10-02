@@ -6,7 +6,7 @@ install DEVICE HOST=`hostname`:
 # Build iso with nixos-generators
 make-iso HOST=`hostname`:
 	nix build .#nixosConfigurations.{{HOST}}.config.formats.install-iso
-	mv result {{HOST}}.iso
+	#mv result {{HOST}}.iso
 
 rebuild:
 	sudo nixos-rebuild switch
