@@ -14,6 +14,7 @@
     ${pkgs.greetd.tuigreet}/bin/tuigreet --greeting "Welcome Home!" \
                                          --asterisks \
                                          --remember \
+																				 --cmd Hyprland \
                                          --remember-user-session \
                                          --time \
                                          --sessions /etc/greetd/sessions

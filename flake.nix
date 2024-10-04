@@ -16,7 +16,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     impermanence.url = "github:nix-community/impermanence";
-
+    nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
     niri = {
       url = "github:YaLTeR/niri";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -38,9 +38,10 @@
     };
     hdhomerun-client.url = "github:xiro-codes/hdhomerun-client";
     aagl = {
-      url = "github:ezKEa/aagl-gtk-on-nix";
+      url = "github:ezKEa/aagl-gtk-on-nix/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    zen-browser.url = "github:MarceColl/zen-browser-flake";
   };
   outputs = {
     self,
@@ -55,12 +56,15 @@
       systems.modules.nixos = with inputs; [
         disko.nixosModules.default
         nixos-generators.nixosModules.all-formats
+        nixos-cosmic.nixosModules.default
         aagl.nixosModules.default
+        impermanence.nixosModules.impermanence
       ];
 
       systems.hosts.Ruby.modules = with inputs; [
         jovian.nixosModules.default
       ];
+
       systems.hosts.Sapphire.modules = with inputs; [
       ];
 

@@ -5,7 +5,7 @@
   lib,
   ...
 }: let
-  inherit (inputs.self.packages.${pkgs.system}) hyprland-scripts vlc;
+  inherit (inputs.self.packages.${pkgs.system}) hyprland-scripts vlc fuchsia-cursor;
   inherit (lib) getExe;
 in {
   imports = [
@@ -22,14 +22,13 @@ in {
       feh
       grim
       slurp
-      transmission-gtk
       bottom
       duf
       dust
       lazygit
     ]
     ++ [];
-  home.persistence."/persistent/home/tod" = {
+  home.persistence."/persist/home/tod" = {
     directories = [
       "Downloads"
       "Music"
@@ -37,11 +36,14 @@ in {
       "Documents"
       "Videos"
       ".ssh"
+      ".zen"
+      ".config/cosmic"
+      ".local/share/cosmic"
+      ".local/state/cosmic"
+      ".local/state/cosmic-comp"
       ".local/share/direnv"
-      {
-        directory = ".local/share/Steam";
-        method = "symlink";
-      }
+      ".local/share/zoxide"
+      ".local/share/Steam"
     ];
     files = [
     ];
@@ -96,9 +98,9 @@ in {
   gtk = {
     enable = true;
     cursorTheme = {
-      package = pkgs.vanilla-dmz;
-      name = "Vanilla-DMZ";
-      size = 16;
+      package = fuchsia-cursor;
+      name = "fuchsia";
+      size = 24;
     };
     iconTheme = {
       package = pkgs.gruvbox-dark-icons-gtk;

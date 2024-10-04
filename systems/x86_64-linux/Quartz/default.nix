@@ -10,6 +10,8 @@
   imports = [
     ./hardware-configuration.nix
     (import ./disk-configuration.nix {})
+    (import ./ssd-configuration.nix {})
+    (import ./hdd-configuration.nix {})
   ];
   hardware = {
     opengl.enable = true;
@@ -21,9 +23,9 @@
     settings.enable = true;
     bluetooth.enable = true;
     desktops = {
-      enable = true;
-      useEnv = true;
-      enableHyprland = true;
+      enable = false;
+      useEnv = false;
+      enableHyprland = false;
     };
     boot = {
       timeout = 5;
@@ -34,7 +36,7 @@
     useDHCP = false;
     firewall.enable = true;
     networkmanager = {
-      enable = false;
+      enable = true;
       wifi.backend = "iwd";
     };
     wireless = {
@@ -51,20 +53,29 @@
       password = "quartz";
     };
   };
+  environment.systemPackages = [
+    inputs.zen-browser.packages.${system}.default
+    pkgs.nvtopPackages.amd
+  ];
   programs = {
     fish.enable = true;
     git.enable = true;
+    fuse.userAllowOther = true;
     steam = {
       enable = true;
       localNetworkGameTransfers.openFirewall = true;
     };
+    anime-game-launcher.enable = true;
+    honkers-launcher.enable = false;
+    honkers-railway-launcher.enable = true;
   };
   services = {
     blueman.enable = true;
     openssh.enable = true;
     gvfs.enable = true;
     udisks2.enable = true;
-    devmon.enable = false;
+    desktopManager.cosmic.enable = true;
+    displayManager.cosmic-greeter.enable = true;
   };
   boot.initrd.postDeviceCommands = lib.mkAfter ''
     mkdir /btrfs_tmp
@@ -103,6 +114,13 @@
     files = [
     ];
   };
-
+  fileSystems."/mnt/Videos" = {
+    device = "onix.home:/mnt/Media/Videos";
+    fsType = "nfs";
+  };
+  fileSystems."/mnt/Roms" = {
+    device = "onix.home:/mnt/Media/Roms";
+    fsType = "nfs";
+  };
   system.stateVersion = "24.05";
 }

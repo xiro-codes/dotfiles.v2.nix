@@ -14,7 +14,7 @@ in {
     };
     path = mkOption {
       type = types.str;
-      default = "/mnt/hdd/music";
+      default = "/home/tod/Music";
       description = "Music Directory";
     };
   };
